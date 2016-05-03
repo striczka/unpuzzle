@@ -1736,10 +1736,10 @@ nav .input-field label.active {
     url('/fonts/MuliLightItalic.svg#MuliLightItalic') format('svg');
 }
 @font-face {
-  font-family: 'Fregat-Italic';
-  src: url('/fonts/Fregat-Italic.eot?#iefix') format('embedded-opentype'),  url('/fonts/Fregat-Italic.woff') format('woff'), url('/fonts/Fregat-Italic.ttf')  format('truetype'), url('/fonts/Fregat-Italic.svg#Fregat-Italic') format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Fregat-Italic';
+    src: url('/fonts/Fregat-Italic.eot?#iefix') format('embedded-opentype'), url('/fonts/Fregat-Italic.woff') format('woff'), url('/fonts/Fregat-Italic.ttf') format('truetype'), url('/fonts/Fregat-Italic.svg#Fregat-Italic') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @media only screen and (min-width: 0) {
@@ -4774,11 +4774,8 @@ a:hover {
     font-family: "Russo";
     src: url("../font/russo/Russo_One.eot?#iefix") format("embedded-opentype"), url("../font/russo/Russo_One.woff") format("woff"), url("../font/russo/Russo_One.ttf") format("truetype"), url("../font/russo/Russo_One.svg#Material-Design-Icons") format("svg");
     font-weight: normal;
-    font-style: normal
+    font-style: normal;
 }
-
-
-
 
 a.go-to-cart {
     display: block;
@@ -5491,14 +5488,13 @@ i.subcategories-open {
 }
 
 aside.col.m3 {
-    padding: 0 12px 0 0
+    padding: 0 12px 0 0;
 }
 
 .breadcrumbs{
     height: 25px;
     background: #e5e5e5;
 }
-
 .breadcrumb li {
     float: left;
     position: relative;
@@ -5507,7 +5503,7 @@ aside.col.m3 {
     color: #525252;
     height: 25px;
     line-height: 25px;
-}
+
 
 ol.breadcrumb {
     list-style-type: none;
@@ -5516,6 +5512,7 @@ ol.breadcrumb {
     width: 100%;
     float: left;
     padding: 0;
+    padding-left: 13px
 }
 
 .breadcrumb li:after {

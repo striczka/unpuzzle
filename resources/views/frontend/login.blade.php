@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <ol class="breadcrumb">
-                <li><a href="/">Home</a></li>
+                <li><a href="/">Главная</a></li>
                 <li class="active">Вход</li>
             </ol>
         </div>
