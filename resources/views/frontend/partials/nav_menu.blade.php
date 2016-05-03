@@ -28,8 +28,8 @@
                         </ul>
                     </li>
                     <li><a href="{{ route('new') }}">testimonials</a></li>
-                    <li><a href="{{ route('sale') }}">blog</a></li>
-                    <li><a href="{{ route('frontend.page') }}">about us</a></li>
+                    <li><a href="{{ route('frontend.page') }}">blog</a></li>
+                    <li><a href="{{ route('sale') }}">about us</a></li>
                     {{--<li><a href="{{ route('service') }}">Сервис</a></li>--}}
                     {{--<li><a href="{{ route('contacts') }}">Контакты</a></li>--}}
                     {{--<li><a rel="nofollow" href="http://fitnesmarket.ua/">Магазин fitnesmarket</a></li>--}}
@@ -65,8 +65,8 @@
                         </div>
                     </li>
                     <li><a href="{{ route('new') }}">testimonials</a></li>
-                    <li><a href="{{ route('sale') }}">blog</a></li>
-                    <li><a href="{{ route('frontend.page') }}">about us</a></li>
+                    <li><a href="{{ route('frontend.page') }}">blog</a></li>
+                    <li><a href="{{ route('sale') }}">about us</a></li>
                     {{--<li><a href="{{ route('service') }}">Сервис</a></li>--}}
                     {{--<li><a href="{{ route('contacts') }}">Контакты</a></li>--}}
                     {{--<li><a rel="nofollow" href="http://fitnesmarket.ua/">Магазин fitnesmarket</a></li>--}}

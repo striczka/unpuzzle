@@ -24,9 +24,9 @@
 <?php $pid = $product->id ?>
 
 <section class="content">
+    <h3 class="content-h3"><span class="red-text">{{ $product->title }}</span></h3>
     <div class="container">
         <div class="row">
-            <h3 class="categories">{{ $product->category->title }}</h3>
             <div class="left linksBlock">
                 @if($product->prevProductSlug())
                     <a class="link left" href="/{{ $product->category->slug.'/'.$product->prevProductSlug() }}">← Предыдущий товар</a>
@@ -67,7 +67,7 @@
                 </ul>
             </div>
             <div class="col single-item-info">
-                <h3>{{ $product->title }}</h3>
+               {{-- <h3>{{ $product->title }}</h3> --}}
                 <p class="single-item-sku">Артикул: <span class="violet-text">{{ $product->article }}</span></p>
 
                 @if(isset($product->brand->title))

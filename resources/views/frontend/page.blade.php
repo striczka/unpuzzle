@@ -12,49 +12,72 @@
         <div class="container">
             <div class="row">
                 <ol class="breadcrumb">
-                    <li><a href="/">Главная</a></li>
-                    <li class="active">Акции</li>
+                    <li><a href="/">Home</a></li>
+                    <li class="active">Blog</li>
                 </ol>
             </div>
         </div>
     </section>
 
     <section class="content">
-        <!--Simple Menu-->
+    <!--Simple Menu-->
+        <h3 class="content-h3"><span class="red-text">Blog</span></h3>
         <div class="container">
             <div class="row"><div class="col s12 text-page no-padding">
                     {{--<h3>{{ $page->title }}</h3>--}}
                     @foreach($articles as $key => $article)
-                        <!--Post-->
-                        <div class="post col s12 wow fadeInUp animated" data-wow-delay="0.{{ $key + 2 }}s">
-                            <div class="post-row-left center col s2 hide-on-small-and-down">
-                                <div class="post-date">
-                                    <span class="top-part col s12"> {{ date('d', strtotime($article->published_at)) }} </span>
-                                    <span class="bottom-part col s12"> {{ date('m \'y', strtotime($article->published_at)) }}</span>
+                        
+                        @if($key == 0)
+                            <div class="post-first col s12 m12 l12 wow fadeInUp animated" data-wow-delay="0.{{ $key + 2 }}s">
+                            <div class="post-row-center no-padding col s12 ">
+                                <div class="hide-on-small-and-down">
+                                    <div class="post-date">{{ date('d\.m\.y', strtotime($article->published_at)) }}</div>
                                 </div>
-                            </div>
-                            <div class="post-row-center col s12 m10">
-                                <div class="post-media col s12 m6 l4">
+                                <div class="post-media no-padding col s12 m6 l6">
                                     <div class="media-inner">
                                         <a href="/news/{{ $article->id }}/{{ $article->slug }}" title="{{ $article->title }}!">
-                                            <img src="{{ url($article->thumbnail) }}" class="responsive-img" alt="{{ $article->title }}">
+                                            <img src="{{ url($article->thumbnail) }}" alt="{{ $article->title }}">
                                         </a>
                                     </div>
                                 </div>
-                                <div class="post-content-outer col s12 m6 l8">
+                                <div class="post-content-outer col s12 m6 l6">
                                     <header class="single">
                                         <h4>
-                                            <a href="/news/{{ $article->id }}/{{ $article->slug }}" title="{{ $article->title }}">{{ $article->title }}</a>
+                                            <a href="/news/{{ $article->id }}/{{ $article->slug }}" title="{{ $article->title }}">{{ substr($article->title,0,44) }}</a>
                                         </h4>
                                     </header>
-                                    <p>
-                                        {!! $article->excerpt !!}
-                                    </p>
-                                    <a href="/news/{{ $article->id }}/{{ $article->slug }}" class="waves-effect waves-light btn">Подробнее</a>
+                                    <p>{!! $article->excerpt !!}</p>
+                                    <a href="/news/{{ $article->id }}/{{ $article->slug }}" class="waves-effect waves-light btn btn-RM">Reed more</a>
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        <!--Post-->
+                        <div class="post col s12 m12 l6 wow fadeInUp animated" data-wow-delay="0.{{ $key + 2 }}s">
+                            <div class="post-row-center no-padding col s12 ">
+                                <div class="hide-on-small-and-down">
+                                    <div class="post-date">{{ date('d\.m\.y', strtotime($article->published_at)) }}</div>
+                                </div>
+                                <div class="post-media no-padding col s12 m6 l6">
+                                    <div class="media-inner">
+                                        <a href="/news/{{ $article->id }}/{{ $article->slug }}" title="{{ $article->title }}!">
+                                            <img src="{{ url($article->thumbnail) }}" alt="{{ $article->title }}">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post-content-outer col s12 m6 l6">
+                                    <header class="single">
+                                        <h4>
+                                            <a href="/news/{{ $article->id }}/{{ $article->slug }}" title="{{ $article->title }}">{{ substr($article->title,0,44) }}</a>
+                                        </h4>
+                                    </header>
+                                    <p>{!! $article->excerpt !!}</p>
+                                    <a href="/news/{{ $article->id }}/{{ $article->slug }}" class="waves-effect waves-light btn btn-RM">Reed more</a>
                                 </div>
                             </div>
                         </div>
                         <!--End of Post-->
+                         @endif
                     @endforeach
 
                     <div class="col s12 center arts_pag">

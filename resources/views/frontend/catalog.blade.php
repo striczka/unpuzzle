@@ -34,7 +34,7 @@
                     @endif
 
 
-<section class="breadcrumbs">
+<section class="breadcrumbs ourQuests">
     <div class="container">
         <div class="row">
             <ol class="breadcrumb">
@@ -48,15 +48,18 @@
 
 <section class="content">
     <!--Simple Menu-->
+    <h3 class="content-h3"><span class="red-text">{{ isset($category->title) ? $category->title : $header }}</span></h3>
     <div class="container">
         <div class="row">
 
-            @include('frontend.partials.sidebar')
+            {{-- @include('frontend.partials.sidebar') --}}
 
-            <div class="col s12 m12 l9 catalog no-padding">
-                <h3>{{ isset($category->title) ? $category->title : $header }}</h3>
 
-                @include('frontend.partials.products.controls')
+
+            <div class="col s12 catalog no-padding">
+                {{-- <h3>{{ isset($category->title) ? $category->title : $header }}</h3> --}}
+
+               {{-- @include('frontend.partials.products.controls') --}}
 
                 <div id="products">
                     @if(!Request::has('filter'))
@@ -68,7 +71,7 @@
                     @endif
                 </div>
 
-                @include('frontend.partials.products.controls')
+                {{-- @include('frontend.partials.products.controls') --}}
 
                 @if(isset($category))
                     @if($category->header)
