@@ -10,7 +10,9 @@
     <div class="container">
         <div class="row">
             <ol class="breadcrumb">
-                <li><a href="/">Главная</a></li>
+
+                <li><a href="/">home</a></li>
+
                 <li class="active">Страница благодарности</li>
             </ol>
         </div>
