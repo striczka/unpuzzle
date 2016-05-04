@@ -1742,6 +1742,28 @@ nav .input-field label.active {
   font-style: normal;
 }
 
+@font-face {
+    font-family: 'aavantebsnrbold';
+    src: url('/fonts/aavantebsnr_bold.eot');
+    src: url('/fonts/aavantebsnr_bold.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/aavantebsnr_bold.woff2') format('woff2'),
+         url('/fonts/aavantebsnr_bold.woff') format('woff'),
+         url('/fonts/aavantebsnr_bold.ttf') format('truetype'),
+         url('/fonts/aavantebsnr_bold.svg#a_avantebsnrbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'Fregat-BoldItalic';
+  src: url('/fonts/Fregat-BoldItalic.eot?#iefix') format('embedded-opentype'),  url('/fonts/Fregat-BoldItalic.woff') format('woff'), url('/fonts/Fregat-BoldItalic.ttf')  format('truetype'), url('/fonts/Fregat-BoldItalic.svg#Fregat-BoldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
 @media only screen and (min-width: 0) {
     html {
         font-size: 14px
@@ -3734,6 +3756,9 @@ select {
 @media only screen and (max-width: 992px) {
     .side-nav.fixed {
         left: -105%
+    }
+    .post {
+        padding: 0px !important;
     }
 
     .side-nav.fixed.right-aligned {
@@ -5998,7 +6023,8 @@ a.link {
 
 .linksBlock {
     width: 100%;
-    margin-bottom: 7px
+    margin-bottom: 7px;
+    margin-top: 7px;
 }
 
 form.col.card {
@@ -6931,6 +6957,7 @@ h3.red-text:before, h3.red-text:after{
     .colour-block td:nth-child(4n + 4) .round-digit:before{
         opacity:0
     }
+
 }
 
 @media screen and (max-width: 958px) {
@@ -7308,6 +7335,12 @@ a.btn-RM {
 .post{
     margin-bottom: 15px;
 }
+.post:nth-child(2n+1){
+    padding-right: 0px;
+}
+.post:nth-child(n+1){
+    padding-left: 0px;
+}
 .post-row-center {
     background: #fff;
     border:1px solid #e6e6e6; 
@@ -7317,7 +7350,7 @@ a.btn-RM {
 }
 
 .post .media-inner {
-    height: auto;
+    height: inherit;
     max-height: 100%;
     max-width: 100%;
     width: 100%;
@@ -7354,6 +7387,7 @@ header.single h4 {
 .post-row-center img{
     max-width: 100%;
     height: 100%;
+    width: 100%;
 }
 .post-first {
     margin: 24px 0 15px;
@@ -7362,10 +7396,13 @@ header.single h4 {
     height: 336px;
 }
 .post-first .media-inner {
-    height: inherit;
+    height: 100%;
     width: 100%;
     max-height: 100%;
     max-width: 100%;
+}
+.post-media {
+    height: inherit;
 }
 
 .post-first a.btn-RM {
@@ -7391,6 +7428,11 @@ header.single h4 {
     bottom: 0;
     width: 170px;
     border-bottom: 1px solid #c45a59;
+}
+.articleExcerpt {
+    height: 89px;
+    overflow: hidden;
+    padding: 0px 2px;
 }
 /*
 .aside-article .span-h3:after{
@@ -7566,4 +7608,218 @@ header.single h4 {
 }
 .catalog .item-inner {
     height: 380px;
+}
+.ourQuestsText {
+    text-align: center;
+    padding: 24px 0px 30px;
+    width: 60%;
+    margin: 0 auto;
+}
+.ourQuestsText * {
+    font-family: 'aavantebsnr_light';
+    font-size: 15px;
+}
+.ourQuestsText p:last-child{
+    padding-top: 20px;
+}
+.ourQuestsText h3:before,.ourQuestsText h3:after{
+    display: none;
+}
+.ourQuestsText h3 {
+    color: #a40200;
+    font-family: "Myriad", sans-serif;
+    font-size: 36px;
+    line-height: 36px;
+    margin: 0 0 25px;
+}
+.catalog .card {
+    height: inherit;
+}
+.catalog .card.item .item-image {
+    height: inherit;
+}
+.catalog img.activator {
+    height: 100%;
+}
+.catalog .col.item-inner {
+    margin-bottom: 1px;
+}
+.catalog {
+    margin: 30px 0px;
+}
+/*
+.catalog .col.item-inner:nth-child(n+4) {
+    border-top: 2px solid #e6e6e6;
+}*/
+.catalog #products {
+    margin-bottom: 0px;
+}
+
+.arts_pag{
+    height: 61px;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    margin-bottom: 40px;
+}
+
+.arts_pag .pagination li {
+    border-radius: 3px;
+    border-color: transparent;
+}
+.arts_pag .pagination li.active{
+    background: #a72524;   
+}
+.arts_pag .pagination li a {
+    color: #000;
+    font-family: 'aavantebsnrbold';
+    font-size: 16px;
+}
+.arts_pag .pagination li.active a {
+    color: #fff;
+
+}
+.arts_pag .pagination li.active.prev a,.arts_pag .pagination li.active.next a{
+    color: #990100;
+    font-family: 'aavantebsnr_light';
+}
+.arts_pag .pagination li.next a {
+    color: #4b4b4b;
+}
+.arts_pag .pagination li.active.prev,.arts_pag .pagination li.active.next{
+    background: transparent;
+}
+
+.full-desc {
+    min-height: 150px;
+    background: #fff;
+    padding: 30px 14% 0px!important;
+    margin-bottom: 30px;
+}
+
+.full-desc h5{
+    font-size: 16px;
+    font-family: 'Fregat-BoldItalic';
+    font-style: italic;
+    color: #010101;
+    margin: 0 0 10px;
+    text-indent: 5px;
+}
+.full-desc h5 span{
+    color: #a72524;
+}
+.full-desc .full-descBody *{
+    font-size: 15px;
+    color: #000;
+    font-family: 'aavantebsnr_light';
+}
+
+.single-item-info h4 {
+    text-transform: inherit;
+}
+.aspect p {
+    color: #000;
+    font-family: 'aavantebsnrbold';
+    font-size: 14px; 
+}
+.aspect p span{
+    font-family: 'aavantebsnr_light';
+    color: #a72524;   
+}
+.asideFormProd {
+    background: #a72524;
+    padding-top: 20px!important;
+}
+
+.asideFormProd h4 {
+    font-size: 26px;
+    text-transform: inherit;
+    color: #fff;
+    text-align: center;
+}
+.asideFormProd h4 span {
+    position: relative;
+    padding: 10px 0px;
+    letter-spacing: 1px;
+}
+.asideFormProd h4 span:before,.asideFormProd h4 span:after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 96px;
+    height: 2px;
+    background: #fff;
+}
+.asideFormProd h4 span:before{
+    top: 0;
+}
+.asideFormProd table{
+    width: 254px;
+    margin: 35px auto 0px;
+    height: 64px;
+}
+
+.asideFormProd table td{
+    width: 50%;
+    border: 1px solid #fff;
+}
+.asideFormProd table td:nth-child(1){
+    font-family: 'Futura-Bold';
+    font-size: 40px;
+    text-align: right;
+    color: #fff;
+}
+.asideFormProd table td:nth-child(1) span{
+    font-size: 35px;
+}
+.asideFormProd table td:nth-child(2){
+    background: #fff;
+}
+.asideFormProd label{
+    height: 42px!important;
+    width: 137px;
+    line-height: 42px!important;
+    background: #820402;
+    color: #fff;
+    font-size: 16px!important;
+    font-family: 'Fregat-BoldItalic';
+    text-align: center;
+    padding: 0!important;
+    text-transform: uppercase;
+    margin-top: 26px;
+}
+.asideFormProd input:checked + label {
+    background: #ffad00;
+}
+.asideFormProd label:before,.asideFormProd label:after{
+    /*display: none;*/
+}
+.asideFormProd label:before{
+    content: '';
+    border: 1px solid #fff;
+    position: relative;
+    top: 0;
+    right: 0;
+}
+@media (max-width: 1000px){
+    .ourQuestsText {
+        width: 95%;
+    }
+}
+
+@media (max-width: 600px){
+    a.btn-RM,.post-first a.btn-RM{
+        position: relative;
+        bottom: 0;
+        margin: 10px 0px;
+    }
+    .post-row-center,.post-first .post-row-center {
+        height: auto;
+    }
+    .articleExcerpt {
+        height: auto;
+        overflow: visible;
+    }
 }

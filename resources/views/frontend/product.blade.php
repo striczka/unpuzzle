@@ -37,112 +37,132 @@
                 @endif
             </div>
 
-            {{--{{ $product->id }}--}}
-            <div class="col divLightBox no-padding">
-                <ul class="listLightbox">
-                    <li>
-                        @if(count($product->thumbnail) && file_exists(public_path($product->thumbnail->first()->path)))
-                             <a class="example-image-link bigImage" href="{{ $product->thumbnail->first()->path }}" data-lightbox="example" data-title="{{ $product->title }}">
-                                <img class="example-image" src="{{ $product->thumbnail->first()->path }}" alt="{{ $product->title }}"/>
-                             </a>
-                        @else
-                            <a class="example-image-link bigImage" href="#" data-title="{{ $product->title }}">
-                                <img class="example-image" src="/frontend/images/default.png" alt="{{ $product->title }}"/>
-                            </a>
-                        @endif
-                        @if(hasGift($product))
-                            <div class="appointment"><img src="/frontend/images/present.png" /></div>
-                        @endif
-                    </li>
-                    @if(count($product->thumbnail) && file_exists(public_path($product->images->first()->path)))
-
-                        @foreach($product->images as $key => $image)
-                            <li><a class="example-image-link" href="{{ $image->path }}" data-lightbox="example-set" data-title="{{ $product->title }}"><img class="example-image" src="{{ $image->path }}" alt=""/></a></li>
-                        @endforeach
-
-                    @else
-
-
-                    @endif
-                </ul>
-            </div>
-            <div class="col single-item-info">
-               {{-- <h3>{{ $product->title }}</h3> --}}
-                <p class="single-item-sku">Артикул: <span class="violet-text">{{ $product->article }}</span></p>
-
-                @if(isset($product->brand->title))
-                 <p class="brand uppercase no-margin">Бренд: <span>{{ $product->brand->title }}</span></p>
-                @endif
-                <div id="rating_3" class="item-rating left">
-                    <input type="hidden" name="vote-id" value="5" id=""/>
-                    <input type="hidden" name="val" value="{{ round($product->rates()->avg('rate'))}}">
-                </div>
-                <div class="col s6 clearleft wrap-price">
-                    <div class="pricesBlock" style="width:100%;float:left">
-                        <div class="col s12 yellow item-prices">
-                            @if($product->hasDiscount())
-                                <p class="center item-old-price no-margin">{{ $product->getPrice() }} грн</p>
-                                <p class="center item-new-price no-margin">{{ $product->getNewPrice() }} грн</p>
+            <div class="col s12 m12 l9 no-padding">
+                {{--{{ $product->id }}--}}
+                <div class="col divLightBox no-padding">
+                    <ul class="listLightbox">
+                        <li>
+                            @if(count($product->thumbnail) && file_exists(public_path($product->thumbnail->first()->path)))
+                                 <a class="example-image-link bigImage" href="{{ $product->thumbnail->first()->path }}" data-lightbox="example" data-title="{{ $product->title }}">
+                                    <img class="example-image" src="{{ $product->thumbnail->first()->path }}" alt="{{ $product->title }}"/>
+                                 </a>
                             @else
-                                <p class="center item-new-price no-margin">{{ $product->getPrice() }} грн</p>
+                                <a class="example-image-link bigImage" href="#" data-title="{{ $product->title }}">
+                                    <img class="example-image" src="/frontend/images/default.png" alt="{{ $product->title }}"/>
+                                </a>
                             @endif
+                            @if(hasGift($product))
+                                <div class="appointment"><img src="/frontend/images/present.png" /></div>
+                            @endif
+                        </li>
+                        @if(count($product->thumbnail) && file_exists(public_path($product->images->first()->path)))
 
-                            <div class="addtocart-button-item center-align waves-effect waves-light ">
-                                <input type="submit"
-                                       name="addtocart"
-                                       class="addtocart-button buy animProduct"
-                                       data-productId="{{ $product->id }}"
-                                        {{--data-productPrice="{{ $product->getPrice() }}"--}}
-                                       value="{{ productInCart($product) ? 'В корзине' : 'Купить' }}"
-                                       title="купить">
+                            @foreach($product->images as $key => $image)
+                                <li><a class="example-image-link" href="{{ $image->path }}" data-lightbox="example-set" data-title="{{ $product->title }}"><img class="example-image" src="{{ $image->path }}" alt=""/></a></li>
+                            @endforeach
+
+                        @else
+
+
+                        @endif
+                    </ul>
+                </div>
+                <div class="col single-item-info">
+                    <h4>{{ $product->title }}</h4> 
+                    {{--<p class="single-item-sku">Артикул: <span class="violet-text">{{ $product->article }}</span></p>--}}
+                    {{--
+                    @if(isset($product->brand->title))
+                     <p class="brand uppercase no-margin">Бренд: <span>{{ $product->brand->title }}</span></p>
+                    @endif --}}
+                    {{--
+                    <div id="rating_3" class="item-rating left">
+                        <input type="hidden" name="vote-id" value="5" id=""/>
+                        <input type="hidden" name="val" value="{{ round($product->rates()->avg('rate'))}}">
+                    </div> --}}
+                    {{--
+                    <div class="col s6 clearleft wrap-price">
+                        <div class="pricesBlock" style="width:100%;float:left">
+                            <div class="col s12 yellow item-prices">
+                                @if($product->hasDiscount())
+                                    <p class="center item-old-price no-margin">{{ $product->getPrice() }} грн</p>
+                                    <p class="center item-new-price no-margin">{{ $product->getNewPrice() }} грн</p>
+                                @else
+                                    <p class="center item-new-price no-margin">{{ $product->getPrice() }} грн</p>
+                                @endif
+
+                                <div class="addtocart-button-item center-align waves-effect waves-light ">
+                                    <input type="submit"
+                                           name="addtocart"
+                                           class="addtocart-button buy animProduct"
+                                           data-productId="{{ $product->id }}"--}}
+                                            {{--data-productPrice="{{ $product->getPrice() }}"--}}
+                                           {{--value="{{ productInCart($product) ? 'В корзине' : 'Купить' }}"
+                                           title="купить">
+                                </div>
                             </div>
-
                         </div>
+                    </div>--}}
+                    <div class="col s12">
+                    
+                    {{-- {{ dd($product->filterValuesWithFilters->sortBy('filter.category.pivot.order')->toArray()) }}--}}
+                        @foreach($product->sortedValues($product->category_id) as $field)
+                            {{--{{ dd($field->toArray()) }}--}}
+                            @if($field->filter->isVisibleForCategory($product->category_id))
+                                <div class="col aspect no-padding s12">
+                                    {{--{{ dd($field->filter->toArray()) }}--}}
+                                    {{--<p class="title bold uppercase">Основные</p>--}}
+                                    <p class="col s12 m6 no-padding">{{ $field->filter->title }} <span>{{ $field->value }}</span></p>
+                                    {{--<p class="col s12 m6 no-padding">{{ $field->value }}</p>--}}
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    {{--
+                    <div class="col s6 wrapper-buttons">
+                        <div class="col s12 bordered buttons">
+                            <div class="col s6 item-option center no-padding">
+                                <button type="button" class="{{ $product->flash_view ? 'object-3d' : '_disabled' }} " id="object-3d" href="#">
+                                    <img src="/frontend/images/button-3d.png" class="responsive-img" alt="object-3d"/>
+                                    <span>товар в 3D</span>
+                                </button>
+                            </div>
+                            <div class="col s6 item-option center no-padding">
+                                <a class="instruction {{ $product->pdf ? '' : '_disabled' }} " href="/{{ $product->pdf }}" target="_blank">
+                                    <img src="/frontend/images/button-instruction.png" class="responsive-img" alt="instruction"/>
+                                    <span>инструкция</span>
+                                </a>
+                            </div>
+                            <div class="col s6 item-option center no-padding">
+                                <a class="{{ $product->video ? 'modal-trigger' : '_disabled' }} " title="{{ $product->video ? 'modal-trigger' : 'Нет видео' }}" id="video-trigger" href="#video">
+                                    <img src="/frontend/images/button-camera.png" class="responsive-img" alt="video"/>
+                                    <span>видео</span>
+                                </a>
+                            </div>
+                            <div class="col s6 item-option center no-padding">
+                                <a class="print" href="#" onclick="printsite();">
+                                    <img src="/frontend/images/button-printer.png" class="responsive-img" alt="print"/>
+                                    <span>распечатать</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div> --}}
+                    <div class="col s12 wrapper-buttons">
+                        <div class="col bordered clearleft short-desc s12">
+                            <span class="bold">Упаковка</span>
+                            <p class="no-margin">{{ $product->pack }}</p>
+                        </div>
+                        {{--
+                        <div class="col clearleft short-desc s12 no-margin">
+                        @if ($product->available)
+                            <p class="availability green-text bold no-margin"><img src="/frontend/images/available.png" alt=""/>Есть в
+                                наличии</p>
+                        @else
+                            <p class="availability bold red-text no-margin"><i class="red-text fa fa-remove"></i> Нет в наличии</p>
+                        @endif
+                        </div>--}}
                     </div>
                 </div>
-                <div class="col s6 wrapper-buttons">
-                    <div class="col s12 bordered buttons">
-                        <div class="col s6 item-option center no-padding">
-                            <button type="button" class="{{ $product->flash_view ? 'object-3d' : '_disabled' }} " id="object-3d" href="#">
-                                <img src="/frontend/images/button-3d.png" class="responsive-img" alt="object-3d"/>
-                                <span>товар в 3D</span>
-                            </button>
-                        </div>
-                        <div class="col s6 item-option center no-padding">
-                            <a class="instruction {{ $product->pdf ? '' : '_disabled' }} " href="/{{ $product->pdf }}" target="_blank">
-                                <img src="/frontend/images/button-instruction.png" class="responsive-img" alt="instruction"/>
-                                <span>инструкция</span>
-                            </a>
-                        </div>
-                        <div class="col s6 item-option center no-padding">
-                            <a class="{{ $product->video ? 'modal-trigger' : '_disabled' }} " title="{{ $product->video ? 'modal-trigger' : 'Нет видео' }}" id="video-trigger" href="#video">
-                                <img src="/frontend/images/button-camera.png" class="responsive-img" alt="video"/>
-                                <span>видео</span>
-                            </a>
-                        </div>
-                        <div class="col s6 item-option center no-padding">
-                            <a class="print" href="#" onclick="printsite();">
-                                <img src="/frontend/images/button-printer.png" class="responsive-img" alt="print"/>
-                                <span>распечатать</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 wrapper-buttons">
-                    <div class="col bordered clearleft short-desc s12">
-                        <span class="bold">Упаковка</span>
-                        <p class="no-margin">{{ $product->pack }}</p>
-                    </div>
-                    <div class="col clearleft short-desc s12 no-margin">
-                    @if ($product->available)
-                        <p class="availability green-text bold no-margin"><img src="/frontend/images/available.png" alt=""/>Есть в
-                            наличии</p>
-                    @else
-                        <p class="availability bold red-text no-margin"><i class="red-text fa fa-remove"></i> Нет в наличии</p>
-                    @endif
-                    </div>
-                </div>
-            </div>
+            {{--
             <div class="col features">
 
                 <div class="col s6 no-padding">
@@ -180,47 +200,47 @@
 
                     <p>Полный комплект докумен­тов: паспорт, гарантийный талон, товарный чек.</p>
                 </div>
-            </div>
+            </div> --}}
 
             @include('frontend.partials.products.stock')
-
-            <div class="col s12 m4 l6 full-desc no-padding">
-                <span class="green">Описание</span>
-                <div class="bordered">
+        </div>
+        <div class="col l3 asideFormProd no-padding">
+            <form>
+                <h4><span>{{ $product->title }}</span></h4>
+                <table>
+                    <tr>
+                        <td>{{ $product->getPrice()}} <span>{{ $product->brand->title }}</span></td>
+                        <td><span>quest's type:</span></td>
+                    </tr>
+                </table>
+                <input id='team1' type="radio" name="team" value='1' checked>
+                <label for="team1">1 team</label>
+                <input id='team2' type="radio" name="team" value='2'>
+                <label for="team2">2 teams</label>
+            </form>
+        </div>
+            <div class="col s12 full-desc no-padding">
+                <h5>About Quest “<span>{{ $product->title }}</span>”:</h5>
+                <div class="full-descBody">
                    {!! $product->body !!}
                 </div>
             </div>
-            <div class="col s12 m4 l6 full-desc">
-                <span class="green">Характеристики</span>
-                <div class="col bordered">
-{{--                    {{ dd($product->filterValuesWithFilters->sortBy('filter.category.pivot.order')->toArray()) }}--}}
-                    @foreach($product->sortedValues($product->category_id) as $field)
-                        {{--{{ dd($field->toArray()) }}--}}
-                        @if($field->filter->isVisibleForCategory($product->category_id))
-                            <div class="col aspect no-padding s12">
-                                {{--{{ dd($field->filter->toArray()) }}--}}
-                                {{--<p class="title bold uppercase">Основные</p>--}}
-                                <p class="col s12 m6 no-padding">{{ $field->filter->title }}</p>
-                                <p class="col s12 m6 no-padding">{{ $field->value }}</p>
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
-            </div>
+            {{--
             <div class="col s12 m3 right clearleft">
-                <div class="review-button center-align waves-effect waves-light">
+                <div class="review-button center-align waves-effect waves-light">--}}
                     {{--@if(Auth::check())--}}
-                        <a href="#review" class="review-button white-text green uppercase modal-trigger" title="купить">
+                        {{--<a href="#review" class="review-button white-text green uppercase modal-trigger" title="купить">
                             <input type="submit" name="add_review" class="review-button white-text green uppercase" value="оставить отзыв" title="купить">
-                        </a>
+                        </a>--}}
                         @if (session('message'))
-                            <div style="color: rgba(0, 128, 0, 0.76)">
+                            {{--<div style="color: rgba(0, 128, 0, 0.76)">
                                 <b>{{ session('message') }}</b>
-                            </div>
+                            </div>--}}
                         @endif
                     {{--@endif--}}
-                </div>
-            </div>
+              {{--  </div>
+            </div>--}}
+            {{--
             <div class="col s12 m9 right reviews">
                 @if(count($product->reviews))
                   <h3>Отзывы</h3>
@@ -242,7 +262,7 @@
                 @empty
                 <!-- When reviews is empty, fill it if you want, and remove check for reviews count -->
                 @endforelse
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>

@@ -6,7 +6,7 @@
                     <i class="drag-target close-button fa fa-times"></i>
 
                     <li><a href="/">home</a></li>
-                    <li><a href="/about">our quests</a></li>
+                    <li><a href="{{ route('sale') }}">our quests</a></li>
                     <li class="col s12 mob-collaps-catalog">
                         <a href="#" class="left">how it works</a>
                         <span class="collapsible-header right no-margin no-padding"><i class="fa fa-arrow-down subcategories-open"></i></span>
@@ -29,14 +29,14 @@
                     </li>
                     <li><a href="{{ route('new') }}">testimonials</a></li>
                     <li><a href="{{ route('frontend.page') }}">blog</a></li>
-                    <li><a href="{{ route('sale') }}">about us</a></li>
+                    <li><a href="/about">about us</a></li>
                     {{--<li><a href="{{ route('service') }}">Сервис</a></li>--}}
                     {{--<li><a href="{{ route('contacts') }}">Контакты</a></li>--}}
                     {{--<li><a rel="nofollow" href="http://fitnesmarket.ua/">Магазин fitnesmarket</a></li>--}}
                 </ul>
                 <ul class="right top-nav hide-on-small-and-down">
                     <li><a href="/">home</a></li>
-                    <li><a href="/about">our quests</a></li>
+                    <li><a href="{{ route('sale') }}">our quests</a></li>
                     <li class="parent main-catalog">
                         <a href="#">how it works</a>
 
@@ -66,7 +66,7 @@
                     </li>
                     <li><a href="{{ route('new') }}">testimonials</a></li>
                     <li><a href="{{ route('frontend.page') }}">blog</a></li>
-                    <li><a href="{{ route('sale') }}">about us</a></li>
+                    <li><a href="/about">about us</a></li>
                     {{--<li><a href="{{ route('service') }}">Сервис</a></li>--}}
                     {{--<li><a href="{{ route('contacts') }}">Контакты</a></li>--}}
                     {{--<li><a rel="nofollow" href="http://fitnesmarket.ua/">Магазин fitnesmarket</a></li>--}}

@@ -48,6 +48,14 @@
 
 <section class="content">
     <!--Simple Menu-->
+    <div class="ourQuestsText">
+        <h3>Our quests</h3>
+        <p>Do you know that you remember any information better when you find and investigate it by yourself rather than listening to somebody?</p>
+        <p>Forget about tour guides who overload you with information. Forget about big tour groups that you need to follow and make your back and feet ache after hours of non-stop walking! Be independent!
+        Turn your trip into a real adventure!</p>
+        <p>UnPuzzle Barcelona is a perfect mix of finding your way in the city while learning some history and having fun! 
+            We've prepared many routes around the city - choose the theme and the neighborhood that you want to discover!</p>
+    </div>    
     <h3 class="content-h3"><span class="red-text">{{ isset($category->title) ? $category->title : $header }}</span></h3>
     <div class="container">
         <div class="row">
@@ -71,6 +79,10 @@
                     @endif
                 </div>
 
+                <div class="col s12 que-link">
+                    <a href="/">more quests</a>
+                </div>
+                
                 {{-- @include('frontend.partials.products.controls') --}}
 
                 @if(isset($category))

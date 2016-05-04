@@ -28,7 +28,7 @@
                     @foreach($articles as $key => $article)
                         
                         @if($key == 0)
-                            <div class="post-first col s12 m12 l12 wow fadeInUp animated" data-wow-delay="0.{{ $key + 2 }}s">
+                            <div class="post-first col s12 m12 l12 wow no-padding fadeInUp animated" data-wow-delay="0.{{ $key + 2 }}s">
                             <div class="post-row-center no-padding col s12 ">
                                 <div class="hide-on-small-and-down">
                                     <div class="post-date">{{ date('d\.m\.y', strtotime($article->published_at)) }}</div>
@@ -71,7 +71,7 @@
                                             <a href="/news/{{ $article->id }}/{{ $article->slug }}" title="{{ $article->title }}">{{ substr($article->title,0,44) }}</a>
                                         </h4>
                                     </header>
-                                    <p>{!! $article->excerpt !!}</p>
+                                    <div class="articleExcerpt"><p>{!! $article->excerpt !!}</p> </div>
                                     <a href="/news/{{ $article->id }}/{{ $article->slug }}" class="waves-effect waves-light btn btn-RM">Reed more</a>
                                 </div>
                             </div>
@@ -81,9 +81,17 @@
                     @endforeach
 
                     <div class="col s12 center arts_pag">
-                        <br/>
                         {!! $articles->render() !!}
                         {{--<a href="#" class="more btn white-text waves-effect waves-light"></a>--}}
+                        <ul class="pagination">
+                            <li class="active prev"><a href="#!">prev</a></li>
+                            <li class="active"><a href="#!">1</a></li>
+                            <li class="waves-effect"><a href="#!">2</a></li>
+                            <li class="waves-effect"><a href="#!">3</a></li>
+                            <li class="waves-effect"><a href="#!">4</a></li>
+                            <li class="waves-effect"><a href="#!">5</a></li>
+                            <li class="next"><a href="#!">next</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
