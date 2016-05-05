@@ -39,8 +39,32 @@
 
             <div class="col s12 m12 l9 no-padding">
                 {{--{{ $product->id }}--}}
-                <div class="col divLightBox no-padding">
-                    <ul class="listLightbox">
+                <div class="col listLightbox no-padding">
+                    <div class="slider-for-product">
+                        @if(count($product->thumbnail) && file_exists(public_path($product->thumbnail->first()->path)))
+                            @foreach($product->images as $key => $image)
+                                <div><img class="example-image" src="{{ $image->path }}" alt="{{ $product->title }}"/></div>
+                            @endforeach
+                        @else
+                            <img class="example-image" src="/frontend/images/default.png" alt="{{ $product->title }}"/>
+                        @endif
+                        @if(hasGift($product))
+                            <div class="appointment"><img src="/frontend/images/present.png" /></div>
+                        @endif
+                    </div>
+                        @if(count($product->thumbnail) && file_exists(public_path($product->images->first()->path)))
+                            <div class='slider-nav-product'>
+                                @foreach($product->images as $key => $image)
+                                    <div><img class="example-image" src="{{ $image->path }}" alt="{{ $product->title }}"/></div>
+                                @endforeach
+                            @else
+                            @endif
+                            
+                        </div>
+                        @if($key >= 4)
+                            <span class="button" onclick="$('.slick-next').click();"></span>
+                        @endif
+                    {{--<ul class="listLightbox">
                         <li>
                             @if(count($product->thumbnail) && file_exists(public_path($product->thumbnail->first()->path)))
                                  <a class="example-image-link bigImage" href="{{ $product->thumbnail->first()->path }}" data-lightbox="example" data-title="{{ $product->title }}">
@@ -65,7 +89,7 @@
 
 
                         @endif
-                    </ul>
+                    </ul> --}}
                 </div>
                 <div class="col single-item-info">
                     <h4>{{ $product->title }}</h4> 
@@ -151,6 +175,9 @@
                             <span class="bold">Упаковка</span>
                             <p class="no-margin">{{ $product->pack }}</p>
                         </div>
+                        <div class="col s12 no-padding productExcerpt">
+                            <p>{{ $product->excerpt }}</p>
+                        </div>
                         {{--
                         <div class="col clearleft short-desc s12 no-margin">
                         @if ($product->available)
@@ -202,6 +229,16 @@
                 </div>
             </div> --}}
 
+            <div class="sampleQuestion col no-padding">
+                <div>
+                    <span>Sample question:</span>
+                    <h5>Catalonia Square</h5>
+                </div>
+                    <p>You are now at the central square of Barcelona. Amazingly, what now is considered the center of the city only 150 years ago was a rural area just outside the city walls. The actual square was built in the beginning of 20th century following the design and the idea of the 19th century to connect the old town with the modern city. The square is famous for its 2 fountains which are beautifully illuminated during the night and numerous sculptures – works of famous Catalonian sculptors.</p>
+                    <span class="question"></span>
+            </div>
+
+
             @include('frontend.partials.products.stock')
         </div>
         <div class="col l3 asideFormProd no-padding">
@@ -213,10 +250,28 @@
                         <td><span>quest's type:</span></td>
                     </tr>
                 </table>
-                <input id='team1' type="radio" name="team" value='1' checked>
-                <label for="team1">1 team</label>
-                <input id='team2' type="radio" name="team" value='2'>
-                <label for="team2">2 teams</label>
+                <div class="label">
+                    <input id='team1' type="radio" name="team" value='1' checked>
+                    <label for="team1">1 team</label>
+                    <!--<div class="delimiter"></div>-->
+                    <input id='team2' type="radio" name="team" value='2'>
+                    <label for="team2">2 teams</label>
+                </div>
+                <div class="entryField">
+                    <p>Enter the information:</p>
+                    <input type='text' name="name" placeholder="you name">
+                    <input type='text' name="email" placeholder="you email">
+                    <textarea  name="comment" placeholder="you comment"></textarea>
+                    <div class="lang">
+                        <input type='radio' id="en" value='en' name="lang" checked>
+                        <label for="en" data-text='en'></label>
+                        <input type='radio' id="rus" value='rus' name="lang" checked>
+                        <label for="rus" data-text='rus'></label>
+                        <input type='radio' id="es" value='es' name="lang" checked>
+                        <label for="es" data-text="es"></label>
+                    </div>
+                </div>
+                <button type="submit" class="waves-effect waves-light">buy now</button>
             </form>
         </div>
             <div class="col s12 full-desc no-padding">
@@ -365,6 +420,21 @@
                 this.vote_success.fadeOut(2000);
             }
         });
+
+
+    $('.slider-for-product').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      fade: true,
+      asNavFor: '.slider-nav-product'
+    });
+    $('.slider-nav-product').slick({
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      asNavFor: '.slider-for-product',
+      focusOnSelect: true,
+    });
 
 
 

@@ -2,6 +2,9 @@ body {
     padding: 0 !important
 }
 
+* {
+    outline: none;
+}
 a, button, input {
     outline: none
 }
@@ -5735,6 +5738,7 @@ img.activator {
     top: 0
 }
 
+/*
 .listLightbox li a img {
     width: 100%;
     margin: 1px 0px -6px;
@@ -5756,12 +5760,12 @@ img.activator {
     padding: 0 0 0 1px;
     border: 1px solid #ddd;
     margin-top: 0
-}
+}*/
 
 .related-products {
     padding-bottom: 40px
 }
-
+/*
 .listLightbox {
     width: 100%;
     margin: 0
@@ -5770,7 +5774,7 @@ img.activator {
 .divLightBox {
     width: 418px
 }
-
+*/
 div.stable {
     height: 330px
 }
@@ -6412,11 +6416,11 @@ p.single-item-sku {
     text-transform: uppercase;
     color: #fff
 }
-
+/*
 .col.aspect {
     margin-bottom: 10px
 }
-
+*/
 .bordered .col.aspect:last-child {
     margin: 0
 }
@@ -7726,8 +7730,9 @@ header.single h4 {
     color: #a72524;   
 }
 .asideFormProd {
-    background: #a72524;
+    background: #a72524 bottom url(/images/formBG.jpg) no-repeat;
     padding-top: 20px!important;
+
 }
 
 .asideFormProd h4 {
@@ -7758,8 +7763,8 @@ header.single h4 {
 .asideFormProd table{
     width: 254px;
     margin: 35px auto 0px;
-    height: 64px;
 }
+
 
 .asideFormProd table td{
     width: 50%;
@@ -7777,9 +7782,9 @@ header.single h4 {
 .asideFormProd table td:nth-child(2){
     background: #fff;
 }
-.asideFormProd label{
+.asideFormProd .label label{
     height: 42px!important;
-    width: 137px;
+    width: 136px;
     line-height: 42px!important;
     background: #820402;
     color: #fff;
@@ -7788,21 +7793,231 @@ header.single h4 {
     text-align: center;
     padding: 0!important;
     text-transform: uppercase;
-    margin-top: 26px;
+    border: 1px solid #fff;
 }
-.asideFormProd input:checked + label {
+.asideFormProd .label{
+    position: relative;
+    width: 277px;
+    margin: 26px auto 20px;
+}
+.asideFormProd .label input:checked + label {
     background: #ffad00;
 }
-.asideFormProd label:before,.asideFormProd label:after{
-    /*display: none;*/
+.asideFormProd .label label:before,.asideFormProd .label label:after{
+   display: none;
 }
-.asideFormProd label:before{
-    content: '';
-    border: 1px solid #fff;
-    position: relative;
-    top: 0;
+
+.asideFormProd  .delimiter {
+    position: absolute;
+    top: 0px;
+    left: 0;
     right: 0;
+    height: 42px;
+    width: 22px;
+    background: #a72524;
+    border: 1px #FFF solid;
+    margin: 0 auto;
+    z-index: 1;
+    transform: rotate(-18deg)
 }
+.asideFormProd .entryField {
+    width: 280px;
+    margin: 0 auto;
+    background: #820402;
+    height: 336px;
+}
+.asideFormProd .entryField p {
+    color: #fff;
+    font: 14px "aavantebs", sans-serif;
+    padding: 23px 16px;
+    margin: 0;
+}
+.asideFormProd .entryField textarea,.asideFormProd .entryField input{
+    width: 250px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 3px;
+    background: #fff;
+    height: 42px;
+    margin-bottom: 15px;
+    border: none;
+    padding: 0 10px;
+    font-family: 'Fregat-BoldItalic';
+    font-size: 13px;
+    color: #797979;
+}
+.asideFormProd .entryField textarea {
+    resize: none;
+    height: 93px;
+    padding-top: 10px;
+}
+.asideFormProd .entryField [type="radio"]:not(:checked) + label:before {
+    border-radius: 50%;
+    border: 2px solid #FFFBFB;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    left: 0;
+    right: 0;
+    margin: 4px auto;
+}
+.asideFormProd .entryField label {
+    display: inline-block;
+    margin: 0px 30px;
+    text-align: center;
+    padding: 0px;
+}
+.asideFormProd .lang {
+    text-align: center;
+    padding: 10px 0px 30px;
+}
+.asideFormProd .entryField [type="radio"] + label:after {
+    content: attr(data-text);
+    position: absolute;
+    left: -30px;
+    top: -3px;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1); 
+    border: 0;
+    background: none;
+    z-index: 1;
+    color: #fff;
+    font-size: 16px;
+    font-family: "muliregular",sans-serif;
+}
+.asideFormProd .entryField [type="radio"]:nth-child(3) + label:after {
+    left: -35px;
+}
+
+.asideFormProd .entryField [type="radio"]:checked + label:before {
+    border: 4px solid #FFFBFB;
+    background: #888;
+    width: 18px;
+    height: 18px;
+    left: 0;
+    right: 0;
+    margin: 4px auto;
+}
+
+.asideFormProd .entryField *::-webkit-input-placeholder {color:#797979;}
+.asideFormProd .entryField *::-moz-placeholder          {color:#797979;}/* Firefox 19+ */
+.asideFormProd .entryField *:-ms-input-placeholder      {color:#797979;}
+
+.asideFormProd  button {
+    border-radius: 3px;
+    background: #FBAC00;
+    width: 249px;
+    height: 40px;
+    border: none;
+    margin: 20px auto;
+    display: block;
+    color: #fff;
+    font-family: "muliregular",sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+div.listLightbox {
+    width: 472px;
+    position: relative;
+}
+
+span.button{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 70px;
+    width: 31px;
+    background: #f2f2f2;
+    cursor: pointer;
+}
+span.button:before {
+    content: '';
+    position: absolute;
+    border: 2px solid #dfdfdf;
+    width: 15px;
+    height: 15px;
+    border-top: 0px;
+    border-left: 0px;
+    transform: rotate(-45deg);
+    left: 3px;
+    right: 0;
+    top: 26px;
+}
+.slider-for-product {
+    height: 365px;
+}
+.slider-nav-product {
+    width: 440px;
+    position: relative;
+    margin-top: 1px;
+}
+.slider-nav-product div.slick-slide {
+    width: 110px;
+    height: 70px;
+}
+.slider-nav-product button{
+    display: none!important;
+}
+.slider-nav-product div.slick-slide img{
+    max-width: 100%;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #c4c4c4;
+    cursor: pointer;
+}
+.slick-slide .example-image{
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    border: 1px solid #c4c4c4;
+}
+.col.single-item-info {
+    width: 428px;
+    background: #fff;
+    height: 436px;
+}
+.productExcerpt *{
+    color: #000;
+    font-size: 15px;
+    font-family: 'aavantebsnr_light';
+    letter-spacing: 1px;
+}
+
+.sampleQuestion  {
+    background: url(/images/sampleQuestion-bottom.png);
+    min-height: 220px;
+    padding: 0px 40px!important;
+}
+.sampleQuestion p {
+    color: #666;
+    font-size: 15px;
+    font-family: 'aavantebsnr_light';
+}
+
+.sampleQuestion span {
+    font-size: 16px;
+    color: #010101;
+    font-family: 'Fregat-BoldItalic';
+}
+.sampleQuestion h5{
+    font-family: 'aavantebsnrbold';
+    color: #990100;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.sampleQuestion  > div {
+    background: url(/images/ch-icon_07.png) no-repeat;
+    height: 75px;
+    padding: 15px 56px;
+    margin-top: 12px;
+}
+
+
 @media (max-width: 1000px){
     .ourQuestsText {
         width: 95%;
