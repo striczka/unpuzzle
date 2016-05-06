@@ -21,11 +21,11 @@
     </section>
 
    <section class="content">
-        <h3 class="content-h3"><span class="red-text">{{ $article->title }}</span></h3>
+        <h3 class="content-h3 textInherit"><span class="red-text ">{{ $article->title }}</span></h3>
         <!--Simple Menu-->
         <div class="container">
             <div class="row single-post-row">
-                <div class="col s12 m9 l9 text-page no-padding">
+                <div class="col s12 l9 text-page no-padding">
                     <div class="col s12 img-post no-padding">
                         <img src="{{ url($article->thumbnail) }}" class="responsive-img" alt="{{ $article->title }}">
                     </div>
@@ -36,16 +36,16 @@
                         <div class="col date s12 no-padding">
                             <ul class="share">
                                 <li>SHARE:</li>
-                                <li><a href=""></a></li>
-                                <li><a href=""></a></li>
-                                <li><a href=""></a></li>
+                                <li><a href="http://vkontakte.ru/share.php?news/{{ $article->id }}/{{ $article->slug }}"></a></li>
+                                <li><a href="http://www.facebook.com/sharer.php?news/{{ $article->id }}/{{ $article->slug }}"></a></li>
+                                <li><a href="http://vkontakte.ru/share.php?news/{{ $article->id }}/{{ $article->slug }}"></a></li>
                             </ul>
                             {{--<span>{{ date('m',strtotime($article->published_at)) }} </span><span> {{ date('d \'y', strtotime($article->published_at)) }} </span>--}}
                             <span>{{ date('d\.m\.y', strtotime($article->published_at)) }}</span>
                         </div>
                     </div>
                 </div>
-                <aside class="aside-article col s12 m3 l3 no-padding">
+                <aside class="aside-article col s12 l3 no-padding">
                     <div class="topAside">
                         <span class="span-h3">OUR QUESTS</span>
                         <ul>
