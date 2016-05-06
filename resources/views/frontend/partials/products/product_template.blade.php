@@ -60,7 +60,8 @@
                     {{--</div>--}}
                     {{--</div>--}}
 
-                    <p class="desc">{!! $product->excerpt !!}</p>
+                    {{--<p class="desc">{!! $product->excerpt !!}</p> --}}
+                    <p class="desc">{!! $product->pack !!}</p>
                 </div>
                 {{--<div class="addtocart-button center-align">--}}
                 {{--<input--}}

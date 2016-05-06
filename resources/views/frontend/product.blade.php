@@ -37,7 +37,7 @@
                 @endif
             </div>
 
-            <div class="col s12 m12 l9 no-padding">
+            <div class="col s12 m12 l9 mainProduct no-padding">
                 {{--{{ $product->id }}--}}
                 <div class="col listLightbox no-padding">
                     <div class="slider-for-product">
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                     </div>--}}
-                    <div class="col s12">
+                    <div class="col s12 no-padding">
                     
                     {{-- {{ dd($product->filterValuesWithFilters->sortBy('filter.category.pivot.order')->toArray()) }}--}}
                         @foreach($product->sortedValues($product->category_id) as $field)
@@ -135,8 +135,8 @@
                                 <div class="col aspect no-padding s12">
                                     {{--{{ dd($field->filter->toArray()) }}--}}
                                     {{--<p class="title bold uppercase">Основные</p>--}}
-                                    <p class="col s12 m6 no-padding">{{ $field->filter->title }} <span>{{ $field->value }}</span></p>
-                                    {{--<p class="col s12 m6 no-padding">{{ $field->value }}</p>--}}
+                                    <p class="col s12 no-padding">{{ $field->filter->title }} <span>{{ $field->value }}</span></p>
+                                    {{--<p class="col s12 no-padding">{{ $field->value }}</p>--}}
                                 </div>
                             @endif
                         @endforeach
@@ -171,8 +171,7 @@
                         </div>
                     </div> --}}
                     <div class="col s12 wrapper-buttons">
-                        <div class="col bordered clearleft short-desc s12">
-                            <span class="bold">Упаковка</span>
+                        <div class="col clearleft no-padding short-desc s12">
                             <p class="no-margin">{{ $product->pack }}</p>
                         </div>
                         <div class="col s12 no-padding productExcerpt">
@@ -235,19 +234,22 @@
                     <h5>Catalonia Square</h5>
                 </div>
                     <p>You are now at the central square of Barcelona. Amazingly, what now is considered the center of the city only 150 years ago was a rural area just outside the city walls. The actual square was built in the beginning of 20th century following the design and the idea of the 19th century to connect the old town with the modern city. The square is famous for its 2 fountains which are beautifully illuminated during the night and numerous sculptures – works of famous Catalonian sculptors.</p>
-                    <span class="question"></span>
+                    <span class="question">Find a sculpture with a ship. What is its name?</span>
             </div>
 
 
             @include('frontend.partials.products.stock')
         </div>
-        <div class="col l3 asideFormProd no-padding">
+        <div class="col s12 l3 asideFormProd no-padding">
             <form>
                 <h4><span>{{ $product->title }}</span></h4>
                 <table>
                     <tr>
                         <td>{{ $product->getPrice()}} <span>{{ $product->brand->title }}</span></td>
-                        <td><span>quest's type:</span></td>
+                        <td>
+                            <span>quest's type:</span>
+                            <br>or
+                        </td>
                     </tr>
                 </table>
                 <div class="label">
@@ -260,7 +262,7 @@
                 <div class="entryField">
                     <p>Enter the information:</p>
                     <input type='text' name="name" placeholder="you name">
-                    <input type='text' name="email" placeholder="you email">
+                    <input type='email' name="email" placeholder="you email">
                     <textarea  name="comment" placeholder="you comment"></textarea>
                     <div class="lang">
                         <input type='radio' id="en" value='en' name="lang" checked>
@@ -421,22 +423,20 @@
             }
         });
 
-
+    /* слайдер */
     $('.slider-for-product').slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      fade: true,
-      asNavFor: '.slider-nav-product'
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.slider-nav-product'
     });
     $('.slider-nav-product').slick({
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      asNavFor: '.slider-for-product',
-      focusOnSelect: true,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: '.slider-for-product',
+        focusOnSelect: true,
     });
-
-
 
     </script>
 @endsection
