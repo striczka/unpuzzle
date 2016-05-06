@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Code;
+use App\Models\Hint;
+use App\Models\Question;
 use App\Models\Product;
+use App\Services\SimplifyService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 
 /**
  * Class GameController
@@ -33,18 +38,56 @@ class GameController extends Controller {
 	}
     public function checkCode(Request $request) {
         $pass = $request->get("code");
-      //  $crypt = bcrypt($code);
-//        $hashed = Hash::make($code);
-        $codes = Code::all();
+        $codes = Code::active()->with("product")->get();
         foreach($codes as $code){
-            if (Hash::check($pass, $code->code)) return $code->product->questions;
-        }
-        //$codeString = Code::where("code",$crypt)->get();
-        //if(!empty($codeString)) return $codeString;
-        return null;
-        //return $hashed;
-	}
+            if (Hash::check($pass, $code->code)) {
+                if($code->activated=="0"){
+                    $current = Carbon::now("Europe/Kiev");
+                    $trialExpires = $current->addDays(10);
+                    $code->update(["deleted_at" => $trialExpires, "activated" => "1", "active" => "1"]);
+                }
+                if(count($code->question) > 0){
+                    $usedCode = Code::find($code->id)->with("product")
+                                    ->with("question")->first();
 
+                    return \Response::json($usedCode);
+                }
+                else{
+                    return \Response::json($code);
+                }
+            }
+        }
+        return null;
+	}
+    public function checkAnswer(Request $request, SimplifyService $simplifyService) {
+        $answer = $request->get("answer");
+        $id = $request->get("data-id");
+        $code_id = $request->get("codeId");
+        $val = Question::find($id);
+        $rightAnswer = $val->answer;
+        $answer = $simplifyService->simplify($answer);
+        $rightAnswer = $simplifyService->simplify($rightAnswer);
+        $code = Code::find($code_id);
+        if($rightAnswer==$answer) {
+            $nextQuestion = Question::where("order", ">", $val->order)->with("hints")->first();
+            if($nextQuestion) {
+                $code->update(["question_id"=>$nextQuestion->id]);
+                return \Response::json($nextQuestion);
+            }
+            else{
+                if($code->active == "1"){
+                    $current = Carbon::now("Europe/Kiev");
+                    $trialExpires = $current->addDays(1);
+                    $code->update(["deleted_at" => $trialExpires, "active" => "0"]);
+                }
+                $code->update(["question_id" => "0"]);
+                return Response::json($code->deleted_at);
+            }
+        }
+        else{
+            return \Response::json("");
+        }
+    }
     /**
      * @param Request $request
      * @return array
@@ -90,6 +133,10 @@ class GameController extends Controller {
     /**
      * @return array
      */
+    public function getHint($id) {
+        $hint = Hint::find($id);
+        return Response::json($hint);
+	}
     public function getContent() {
         return [
 			'content' => Game::content(),

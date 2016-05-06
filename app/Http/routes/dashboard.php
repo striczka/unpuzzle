@@ -18,6 +18,10 @@ Route::group(['middleware' => ['permissions','handleSlug'],'namespace'=>'\App\Ht
 				'uses' => '\Barryvdh\Elfinder\ElfinderController@showPopup'
 			]
 		);
+		post('change-hint/{questionId}',['as' => 'dashboard.change-hint', 'uses' => 'QuestionsController@changeHint']);
+		post('create-hint/{questionId}',['as' => 'dashboard.create-hint', 'uses' => 'QuestionsController@createHint']);
+		get('delete-hint/{id}',['as' => 'dashboard.delete-hint', 'uses' => 'QuestionsController@deleteHint']);
+		get('get-hints/{questionId}',['as' => 'dashboard.get-hints', 'uses' => 'QuestionsController@getHints']);
 		// Images
 		post('products/{id}/images/add',['as'=>'dashboard.products.images', 'uses'=>'ProductsController@images']);
 		//copy
@@ -86,6 +90,8 @@ Route::group(['middleware' => ['permissions','handleSlug'],'namespace'=>'\App\Ht
 		resource('brands', 'BrandsController');
 		resource('parameters', 'ParametersController');
 		resource('sales', 'SalesController');
+		resource('questions', 'QuestionsController');
+		resource('hints', 'HintsController');
 		resource('stock', 'StockController');
 
 		get('users/search',['as'=>'dashboard.users.search','uses'=>'UsersController@search']);

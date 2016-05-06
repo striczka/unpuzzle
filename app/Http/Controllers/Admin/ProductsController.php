@@ -481,8 +481,7 @@ class ProductsController extends AdminController
 	public function getProductsForSale(Request $request)
 	{
 //		dd($request->all());
-		$products= Product::whereNotIn('id', !empty($request->get('selected')) ? $request->get('selected') : [0])
-					->searchable($request)
+		$products= Product::searchable($request)
 					->with('thumbnail','category')
 					->paginate($request->get('paginate') ?: 20);
 

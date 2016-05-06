@@ -4,22 +4,139 @@
     <section class="game">
         <div class="container">
             <div class="row">
-                <h4>Страница игры</h4>
+                <h4>Прохождение игры</h4>
                 <div id="game">
+                    <a href="#rules" class="modal-trigger">Читать правила прохождения квеста</a>
                     <div class="code-check">
-                        <input id="token" type="hidden" v-model="_token" name="_token" value="{{ csrf_token() }}">
+                        <p>Для начала необходимо ввести уникальный код, который приходит на почту
+                            после покупки квеста.
+                        </p>
+                        <hr>
+                        <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="text" name="code" placeholder="enter the code">
-                        <input type="submit" v-on="click:getGame($event)" value="Enter">
+                        <button class="waves-effect waves-light btn" v-on="click:getGame($event)">ENTER</button>
+                    </div>
+                    <div class="question-info relative">
+                        <h5 v-if="game != null">@{{ game.title }}</h5>
+                        <p v-if="question != null" data-id='@{{ question.id }}' id='question-id'>
+                            @{{ question.order }}.
+                            @{{ question.question }}
+                        </p>
+                        <input v-if="question != null" type='text' placeholder='answer' name='answer'/>
+                        <button class="waves-effect waves-light btn"
+                                    v-if="question != null" v-on="click: answerTheQuestion()">ANSWER</button>
+                        <p v-if="errors.length > 0" class="errors red-text">Errors: @{{ errors }}</p>
+                        <div class="hints-bar" v-if="question != null">
+                            <span>Hints: </span>
+                            <a class="modal-trigger"
+                               v-repeat="hint: hints | orderBy 'order'"
+                               v-on="click : getHint(hint, $event)"
+                               id="hintTrigger-@{{ hint.id }}"
+                               href="#hint-@{{ hint.id }}"><i class="fa fa-envelope-o"></i></a>
+                            {{--<p class="right-align"><a href="#info" class="modal-trigger">Info</a></p>--}}
+                        </div>
+                        <div class="hint" v-repeat="openHint: openHints">
+                            @{{{ openHint.info }}}
+                        </div>
+                        <hr>
+                        <div class="center-align image">
+                            <img src="@{{ game.thumbnail[0].path }}" alt="">
+                        </div>
                     </div>
                 </div>
+                <br>
             </div>
         </div>
     </section>
+    <div id="info" class="modal">
+        <div class="modal-content">
+            <a href="#!" class="modal-action modal-close waves-effect btn-flat "><i class="fa fa-close"></i></a>
+            <div class="info"></div>
+            <div id="clockdiv"></div>
+            <div id="trophy"></div>
+        </div>
+    </div>
+    <div id="rules" class="modal">
+        <div class="modal-content">
+            <a href="#!" class="modal-action modal-close waves-effect btn-flat "><i class="fa fa-close"></i></a>
+            <h4>Правила прохождения квеста</h4>
+                <ul>
+                    <li>Для начала необходимо ввести уникальный код, который приходит на почту
+                        после покупки квеста
+                    </li>
+                    <li>Активировать код можно в течение 6 месяцев с момента покупки, а на прохождение
+                        самого квеста 10 дней
+                    </li>
+                    <li>После завершения игра может открываться полностью еще в течение суток, после
+                        доступ закрывается
+                    </li>
+                    <li>После прохождения игры, в качестве бонуса открывается окошко со всем пройденным
+                        маршрутом, на котором отмечены все пройденные точки. Это картинка, может быть
+                        скачана (в pdf или jpg), а также по завершению игры она приходит на электронную
+                        почту вместе с предложениями других маршрутов.
+                    </li>
+                    <li>Дополнительный вариант при выборе опции (при заказе) командная игра: 2 команды
+                        соревнуются на время, соответственно идет время. Надо сделать так, чтобы команды
+                        знали, кто на каком этапе находится и в конце каждой команде выходило время,
+                        за которое они закончили.
+                    </li>
+                </ul>
+        </div>
+    </div>
+    <style>
+        .fa-envelope-o:before {
+            content: "\f003";
+        }
+        .hints-bar{
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .relative{
+            position: relative;
+        }
+        .hint{
+            margin: 5px 0;
+            padding: 5px 7px;
+            background: rgba(255,165,0,0.5);
+        }
+        .hints-bar a{
+            padding: 0 3px;
+        }
+        .game{
+            min-height: 350px;
+        }
+    </style>
 @endsection
 @section('bottom-scripts')
     <script src="{!! url('admin/assets/js/vue.js') !!}"></script>
     <script>
         $(function(){
+
+            function getTimeRemaining(endtime){
+                var t = Date.parse(endtime) - Date.parse(new Date());
+                var seconds = Math.floor( (t/1000) % 60 );
+                var minutes = Math.floor( (t/1000/60) % 60 );
+                var hours = Math.floor( (t/(1000*60*60)) % 24 );
+                var days = Math.floor( t/(1000*60*60*24) );
+                return {
+                    'total': t,
+                    'days': days,
+                    'hours': hours,
+                    'minutes': minutes,
+                    'seconds': seconds
+                };
+            }
+            function initializeClock(id, endtime){
+                var clock = document.getElementById(id);
+                var timeinterval = setInterval(function(){
+                    var t = getTimeRemaining(endtime);
+                    clock.innerHTML = t.hours + ':' + t.minutes + ':' + t.seconds;
+                    if(t.total<=0){
+                        clearInterval(timeinterval);
+                    }
+                },1000);
+            }
             new Vue({
                 el: "#game",
 
@@ -28,252 +145,112 @@
                 },
 
                 data: {
-                    questions: [],
+                    question: null,
+                    code: null,
+                    game: null,
+                    errors:[],
+                    hints:[],
+                    openHints:[],
                     gameId: null,
                     token: document.getElementById("token").value
                 },
 
                 methods : {
-
+                    getHint: function(hint, event){
+                        event.preventDefault();
+                        var vue = this;
+                        $.ajax("/hint/" + hint.id).done(function (data) {
+                            vue.openHints.push(data);
+                            vue.hints.splice(vue.hints.indexOf(hint), 1);
+                        })
+                    },
                     getGame: function(event){
+                        $(".err-note").remove();
                         var vue = this;
                         event.preventDefault();
                         var code=$("[name='code']").val();
-                        alert(code);
+                        //alert(code);
                         $.ajax({
                             url: '/check-code?code=' + code,
                             method: 'GET'
-                        }).done(function(data){
-                            if(data){
+                        }).done(function(e){
+                            if(e){
                                 $(".code-check").remove();
                                 $("#game").append("<div class='game-wrap'></div>");
-                                vue.setFirstQuestion(data, $(".game-wrap"));
+                                vue.code = e;
+                                vue.game = e.product;
+                                if(vue.code.question_id != "0"){
+                                    vue.setQuestion(vue.code.question);
+                                }
+                                else{
+                                    vue.setQuestion(vue.game.questions[0]);
+                                }
                             }
                             else{
-                                $(".code-check").append("<p class='red err-note'>Error</p>");
+                                $(".code-check").append("<p class='red-text err-note'>Error</p>");
                             }
-                        })
-                    },
-                    setFirstQuestion: function (game, wrap) {
-                        wrap.append(game.title);
-                    },
-                    getImages: function () {
-                        var that = this;
-                        $.ajax({
-                            type: "POST",
-                            url: "/dashboard/get-images/" + that.gameId,
-                            data: {_token : that.token}
-                        }).done(function(images){
-                            if(images){
-                                that.images = images;
-                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            console.log("error");
+                            console.dir(arguments);
                         });
                     },
-                    getRelatedProducts: function(){
-                        var vue = this;
-                        //$(this.$$.cover).show();
-                        $.post('/dashboard/game-actions/getRelatedProducts', {_token: this.token, gameId: this.gameId})
-                                .done(function(games){
-                                    vue.relOptions.selected = games;
-                                    //$(vue.$$.cover).hide();
-                                })
+                    setQuestion: function (question) {
+                        $("[name='answer']").val("");
+                        this.question = question;
+                        this.hints = question.hints;
                     },
-                    getProducts: function(){
-                        var vue = this;
-                        $(this.$$.cover).show();
-                        //console.log(this.getSelectedProductsIds());
-                        $.ajax({
-                            dataType: "json",
-                            method: "GET",
-                            url: '/dashboard/game-actions/getProducts',
-                            cache: false,
-                            data: {
-                                categoryId: vue.relOptions.category,
-                                paginate: vue.relOptions.paginate,
-                                search: vue.relOptions.search,
-                                selected: vue.getSelectedProductsIds(),
-                                page: vue.gamesList.pagination.pageToGet
-                            },
-                            success: function (response) {
-                                //console.log(response);
-                                vue.gamesList.games = response.data;
-                                vue.gamesList.pagination.currentPage = response.current_page;
-                                vue.gamesList.pagination.lastPage = response.last_page;
-                                if(vue.gamesList.pagination.lastPage < vue.gamesList.pagination.pageToGet) {
-                                    vue.gamesList.pagination.pageToGet = vue.gamesList.pagination.lastPage;
-                                    vue.getProducts()
-                                }
-
-                                $(vue.$$.cover).hide();
-
-                            }
-                        });
-                    },
-
-                    nextPage: function(event){
-                        event.preventDefault();
-                        if(this.gamesList.pagination.currentPage != this.gamesList.pagination.lastPage){
-                            this.gamesList.pagination.pageToGet = this.gamesList.pagination.currentPage + 1;
-                            this.getProducts();
-                        }
-                    },
-
-                    prevPage: function(event){
-                        event.preventDefault();
-                        if(this.gamesList.pagination.currentPage != 1) {
-                            this.gamesList.pagination.pageToGet = this.gamesList.pagination.currentPage - 1;
-                            this.getProducts();
-                        }
-                    },
-
-                    syncProducts: function(){
-                        this.selectedProductsIds = this.getSelectedProductsIds();
-                        $.post('/dashboard/game-actions/syncRelated',
-                                {
-                                    _token: this.token,
-                                    ids: this.getSelectedProductsIds(),
-                                    gameId: this.gameId
-                                })
-                    },
-
-                    addProduct: function(event, relProduct){
-                        event.preventDefault();
-                        this.gamesList.games.$remove(relProduct);
-                        this.relOptions.selected.push(relProduct);
-                        this.getProducts();
-                        this.syncProducts();
-                    },
-                    removeProduct: function(event, relProduct){
-                        event.preventDefault();
-                        this.relOptions.selected.$remove(relProduct);
-                        this.getProducts();
-                        this.syncProducts();
-                    },
-                    loadImage: function () {
-                        var that = this;
-                        var uploadInput = $('#image'); // Инпут с файлом
-
-                        //slug = document.getElementById("form-data")._token.value;
-                        //console.dir(uploadInput[0].files);
-                        for(var property in uploadInput[0].files) {
-                            if(!isNaN(property)){
-                                var data = new FormData();
-                                //console.log(uploadInput[0].files[property]);
-                                data.append('file', uploadInput[0].files[property]);
-                                data.append('_token', this.token);
-                                $.ajax({
-                                    url: '/dashboard/upload-image',
-                                    type: 'POST',
-                                    data: data,
-                                    processData: false,
-                                    contentType: false,
-                                    dataType: 'json'
-                                }).done(function(image){
-                                    that.images.push(image);
-                                    if(that.images.length == 1){
-                                        that.setAsThumbnail(image);
+                    answerTheQuestion: function(){
+                        var data = new FormData();
+                        var vue = this, dataId = $('#question-id').attr("data-id"), answer = $("[name='answer']").val();
+                        data.append('data-id', dataId);
+                        data.append('answer', answer);
+                        data.append('codeId', vue.code.id);
+                        data.append('_token', vue.token);
+                        if(answer!=""){
+                            $.ajax({
+                                //url: '/check-answer?data-id=' + dataId +"&answer=" + answer
+                                //+ "&codeId=" + vue.code.id,
+                                //method: 'GET'
+                                url: '/check-answer/',
+                                type: 'POST',
+                                data: data,
+                                processData: false,
+                                contentType: false,
+                                dataType: 'json'
+                            }).done(function(data){
+                                if(data && data != "") {
+                                    vue.openHints = [];
+                                    vue.errors = [];
+                                    if(typeof data == "string"){
+                                        vue.showNote("You completed the game. " +
+                                                "But you have some time to play it more: ");
+                                        initializeClock('clockdiv', data);
+                                        $("#trophy").append("<a href='/" + vue.game.pdf  +
+                                               "' target='_blank'>Маршрут квеста</a> <a class='right' href='" +
+                                                "/game'>Пройти заново</a>");
+                                        vue.question = null;
                                     }
-                                }).fail(function(jqXHR, textStatus, errorThrown){ //replaces .error
-                                    console.log("error");
-                                    console.dir(arguments);
-                                });
-                            }
+                                    else{
+                                        vue.showNote(data.info);
+                                        vue.setQuestion(data);
+                                    }
+                                }
+                                else
+                                {
+                                    vue.errors.push(answer);
+                                }
+                            }).fail(function (jqXHR, textStatus, errorThrown) {
+                                console.log("error");
+                                console.dir(arguments);
+                            });;
                         }
-                        uploadInput.val(null);
-                    },
-
-                    removeImage: function(image){
-                        var that = this,
-                                token = document.getElementById("form-data")._token.value;
-
-                        $.ajax({
-                            type: "POST",
-                            url: "/dashboard/remove-image/" + image.id,
-                            data: {_token : token}
-                        }).done(function(){
-                            var index = that.images.indexOf(image);
-                            if(index > -1)
-                                that.images.splice(index, 1);
-                        });
-                    },
-                    setAsThumbnail: function(image) {
-                        var vue = this;
-                        for(var img in vue.images){
-                            vue.images[img].is_thumb = false;
+                        else{
+                            vue.showNote("Enter the answer");
                         }
-                        vue.images[vue.images.indexOf(image)].is_thumb = true;
-                        $.post("/dashboard/set-thumbnail/" + image.id, {_token: vue.token, gameId : vue.gameId} );
                     },
-
-                    loadPDF: function(){
-                        this.PDF = $(this.$$.pdfInput).val().split('\\').pop();
-                    },
-
-                    removePDF: function(event){
-                        event.preventDefault();
-                        var vue = this;
-                        $(this.$$.pdfInput).val(null);
-                        $.ajax({
-                            type: "POST",
-                            url: "/dashboard/remove-pdf/" + vue.gameId,
-                            data: {_token : vue.token}
-                        }).done(function(){
-                            vue.PDF = null;
-                        });
-                    },
-
-
-                    getFields: function(){
-                        var vue = this;
-                        $("#filters").addClass('loading');
-                        $.get('/dashboard/filters/'+ this.gameId, {category_id: this.category }).done(function(response){
-                            $("#filters .inner").html(response);
-                            $("#filters").removeClass('loading');
-                            vue.initSelectize();
-                        })
-                    },
-
-                    load3D: function(event){
-                        this.flashObject = $(this.$$.flashInput).val().split('\\').pop();
-                    },
-
-
-
-                    loadVideo: function(event){
-                        event.preventDefault();
-                        var vue = this;
-                        bootbox.prompt("Введите HTML код видео", function(result) {
-                            if (result ) {
-                                vue.video = result;
-                            }
-                        });
-
-                    },
-
-                    removeVideo: function(event){
-                        event.preventDefault();
-                        this.video = null;
-                    },
-
-                    removeFlash: function(event){
-                        event.preventDefault();
-                        var vue = this;
-                        $(this.$$.flashInput).val(null);
-                        $.ajax({
-                            type: "POST",
-                            url: "/dashboard/remove-flash/" + vue.gameId,
-                            data: {_token : vue.token}
-                        }).done(function(){
-                            vue.flashObject = null;
-                        });
-                    },
-
-                    getSelectedProductsIds: function(){
-                        var gamesIds = [];
-                        this.relOptions.selected.forEach(function(game){
-                            gamesIds.push(game.id);
-                        });
-                        return gamesIds;
+                    showNote: function(e){
+                      $("#info").find(".info").html(e);
+                      $("#info").openModal();
                     },
 
                     makeSlug: function(event){
@@ -300,15 +277,6 @@
                                 .replace(/[^a-z0-9-]/, '-')
                                 .replace(/-{2,}/g, '-')
                                 .replace(/^[\s\uFEFF\xA0-]+|[\s\uFEFF\xA0-]+$/g, '');
-                    },
-
-                    initSelectize: function(){
-
-                        $('.selectize').selectize({
-                            create: true,
-                            createOnBlur: true,
-                            sortField: 'text'
-                        });
                     }
                 }
             });

@@ -138,7 +138,8 @@ class BuyService {
 		{
 			$message->from('test@aa.com', 'Test');
 
-			$message->to($this->user->email)->subject('Спасибо за покупку!');
+			$message->to("aweimar@mail.ru")->subject('Спасибо за покупку!');
+//			$message->to($this->user->email)->subject('Спасибо за покупку!');
 		});
 
 		Mail::send('emails.admin_invoice', [
@@ -148,7 +149,8 @@ class BuyService {
 		{
 			$message->from('test@aa.com', 'Test');
 
-			$message->to(array_get(Setting::firstOrCreate([])->toArray(),'feedback_email'))->subject('Новый заказ!');
+			$message->to("aweimar@mail.ru")->subject('Новый заказ!');
+//			$message->to(array_get(Setting::firstOrCreate([])->toArray(),'feedback_email'))->subject('Новый заказ!');
 		});
 	}
 

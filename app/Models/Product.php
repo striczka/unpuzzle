@@ -63,6 +63,13 @@ class Product extends Eloquent {
 		'is_import',
 	];
 
+	public function codes() {
+		return $this->hasMany(Code::class)->with("question");
+	}
+	public function questions() {
+		return $this->hasMany(Question::class)
+			->orderBy('order', 'asc')->with("hints");
+	}
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */

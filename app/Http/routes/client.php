@@ -8,6 +8,7 @@ if( ! Request::is('dashboard*') and ! Request::is('auth*')){
 
 	Route::group(['namespace' => '\App\Http\Controllers\Frontend'], function()
 	{
+		Route::get('hint/{id}', 'GameController@getHint');
 		Route::get('rate', 'FrontendController@rateProduct');
 
 		Route::get('/', 'FrontendController@index');
@@ -19,6 +20,8 @@ if( ! Request::is('dashboard*') and ! Request::is('auth*')){
 		post("mail/me",["uses"=>"MailController@mailMe",'as'=>'mail.me']);
 
 		Route::get('check-code',["as"=>"check.code", "uses"=>'GameController@checkCode']);
+		Route::post('check-answer',["as"=>"check.answer", "uses"=>'GameController@checkAnswer']);
+//		Route::get('check-answer',["as"=>"check.answer", "uses"=>'GameController@checkAnswer']);
 		Route::get('game', 'GameController@getGame');
 		Route::get('cart', 'FrontendController@cart');
 		Route::post('buy', 'FrontendController@buy');

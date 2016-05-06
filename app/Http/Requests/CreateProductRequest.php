@@ -33,7 +33,7 @@ class CreateProductRequest extends Request
 	        'category_id' => 'integer',
 //	        'article' => 'required|unique:products,article',
 	        'article' => 'required',
-	        'excerpt' => 'max:250',
+	        'excerpt' => 'max:150',
 			'pdf' => 'mimes:pdf',
 			'flash_view' => 'mimes:swf'
         ];
@@ -51,7 +51,7 @@ class CreateProductRequest extends Request
 			'article.required' => 'Введите артикул товара',
 			'article.unique' => 'Артикул должен быть уникален, у вас уже есть товар с таким артикулом',
 			'discount.integer' => 'Скидка должна быть числом',
-			'excerpt.max' => 'Краткое описание не должно превышать 250 символов',
+			'excerpt.max' => 'Краткое описание не должно превышать 150 символов',
 			'pdf.mimes' => 'Неверный формат файла для PDF поля',
 			'flash_view.mimes' => '3D просмотр должен быть в формате SWF',
 		];

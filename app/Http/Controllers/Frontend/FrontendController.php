@@ -319,13 +319,16 @@ class FrontendController extends BaseController
 			return redirect()->back()->withErrors($buyService->validate($request))->withInput();
 
 		$order = $buyService->registerOrder($request);
+		$current = Carbon::now("Europe/Kiev");
+		$trialExpires = $current->addDays(180);
 		foreach( (array) session('stocks') + ['main'] as $instance) {
 			foreach (Cart::instance($instance)->content() as $boughtProduct) {
 
 				$product = Product::find($boughtProduct->id);
 				Code::create([
 					'product_id' => $product->id,
-					'code' => "code"
+					'code' => "code",
+					"deleted_at" => $trialExpires
 				]);
 			}
 		}
