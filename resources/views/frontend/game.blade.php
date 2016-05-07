@@ -1,41 +1,65 @@
 @extends('frontend.layout')
 
 @section('content')
-    <section class="game">
+    <section class="game-active-title">
         <div class="container">
+            <div class="row center-align">
+                <h5 v-if="game != null" class="item-title">@{{ game.title }}</h5>
+            </div>
+        </div>
+    </section>
+    <section class="@{{ !!question ? 'down' : '' }} arc">
+        <div class="container">
+            <div class="row center-align">
+                <p v-if="question == null" class="game-title muli">Hi!</p>
+                <div id="progress-bar">
+                     <span v-for="sign in questions"
+                           class="@{{ sign.id == question.id ? 'active' : '' }}">@{{ $index + 1 }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="@{{ !!question ? 'active' : '' }} game">
+        <div class="container relative">
             <div class="row">
-                <h4>Прохождение игры</h4>
                 <div id="game">
-                    <a href="#rules" class="modal-trigger">Читать правила прохождения квеста</a>
-                    <div class="code-check">
-                        <p>Для начала необходимо ввести уникальный код, который приходит на почту
-                            после покупки квеста.
+                    <div class="center-align code-check">
+                        <p class="uppercase red-text game-subtitle muli">You are about to start<br>
+                            your Barcelona adventure
                         </p>
                         <hr>
+                        <p class="center-align game-note">Please enter the code that you received
+                            by email to the window below</p>
                         <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="text" name="code" placeholder="enter the code">
-                        <button class="waves-effect waves-light btn" v-on="click:getGame($event)">ENTER</button>
+                        <input class="game-code-input" type="text" name="code"
+                               @keyup.enter="getGame($event)"
+                               autocomplete="off"
+                               placeholder="Enter security code:">
+                        <button class="game-code-submit waves-effect waves-light btn"
+                                v-on:click="getGame($event)">GO!</button>
                     </div>
                     <div class="question-info relative">
-                        <h5 v-if="game != null">@{{ game.title }}</h5>
                         <p v-if="question != null" data-id='@{{ question.id }}' id='question-id'>
-                            @{{ question.order }}.
                             @{{ question.question }}
                         </p>
-                        <input v-if="question != null" type='text' placeholder='answer' name='answer'/>
-                        <button class="waves-effect waves-light btn"
-                                    v-if="question != null" v-on="click: answerTheQuestion()">ANSWER</button>
-                        <p v-if="errors.length > 0" class="errors red-text">Errors: @{{ errors }}</p>
                         <div class="hints-bar" v-if="question != null">
                             <span>Hints: </span>
+                            <span class="hint-links">
                             <a class="modal-trigger"
-                               v-repeat="hint: hints | orderBy 'order'"
-                               v-on="click : getHint(hint, $event)"
+                               v-for="hint in hints | orderBy 'order'"
+                               v-on:click="getHint(hint, $event)"
                                id="hintTrigger-@{{ hint.id }}"
-                               href="#hint-@{{ hint.id }}"><i class="fa fa-envelope-o"></i></a>
+                               href="#hint-@{{ hint.id }}"><i class="fa fa-star"></i></a>
+                            </span>
                             {{--<p class="right-align"><a href="#info" class="modal-trigger">Info</a></p>--}}
                         </div>
-                        <div class="hint" v-repeat="openHint: openHints">
+                        <input v-if="question != null" type='text' placeholder='answer'
+                               name='answer'
+                               @keyup.enter="answerTheQuestion()"/>
+                        <button class="waves-effect waves-light btn"
+                                v-if="question != null" v-on:click="answerTheQuestion()">ANSWER</button>
+                        <p v-if="errors.length > 0" class="errors red-text">Errors: @{{ errors }}</p>
+                        <div class="hint" v-for="openHint in openHints">
                             @{{{ openHint.info }}}
                         </div>
                         <hr>
@@ -56,41 +80,16 @@
             <div id="trophy"></div>
         </div>
     </div>
-    <div id="rules" class="modal">
-        <div class="modal-content">
-            <a href="#!" class="modal-action modal-close waves-effect btn-flat "><i class="fa fa-close"></i></a>
-            <h4>Правила прохождения квеста</h4>
-                <ul>
-                    <li>Для начала необходимо ввести уникальный код, который приходит на почту
-                        после покупки квеста
-                    </li>
-                    <li>Активировать код можно в течение 6 месяцев с момента покупки, а на прохождение
-                        самого квеста 10 дней
-                    </li>
-                    <li>После завершения игра может открываться полностью еще в течение суток, после
-                        доступ закрывается
-                    </li>
-                    <li>После прохождения игры, в качестве бонуса открывается окошко со всем пройденным
-                        маршрутом, на котором отмечены все пройденные точки. Это картинка, может быть
-                        скачана (в pdf или jpg), а также по завершению игры она приходит на электронную
-                        почту вместе с предложениями других маршрутов.
-                    </li>
-                    <li>Дополнительный вариант при выборе опции (при заказе) командная игра: 2 команды
-                        соревнуются на время, соответственно идет время. Надо сделать так, чтобы команды
-                        знали, кто на каком этапе находится и в конце каждой команде выходило время,
-                        за которое они закончили.
-                    </li>
-                </ul>
-        </div>
-    </div>
     <style>
-        .fa-envelope-o:before {
+        .question-info, #progress-bar{
+            display:none;
+        }
+        .fa-star:before {
             content: "\f003";
         }
-        .hints-bar{
-            position: absolute;
-            right: 0;
-            top: 0;
+        .hint-links a:not(:first-child){
+            pointer-events: none;
+            opacity:0.5;
         }
         .relative{
             position: relative;
@@ -103,8 +102,123 @@
         .hints-bar a{
             padding: 0 3px;
         }
-        .game{
-            min-height: 350px;
+        .game:not(.active):before{
+            content: "";
+            background: url("/images/mailing.png") center bottom no-repeat;
+            width: 100%;
+            position: absolute;
+            height: 100%;
+        }
+        .game:not(.active){
+            position: relative;
+            min-height: 440px;
+            margin-bottom:15px;
+            background: -webkit-linear-gradient(top, #FFD449 0%, #ffefba 80%, #ffefba 90%, #fff 100%);
+            background: linear-gradient(top, #FFD449 0%, #ffefba 80%, #ffefba 90%, #fff 100%);
+        }
+        .arc{
+            width: 100%;
+            padding-top: 40px;
+            background-color: #ffd449;
+            border-top-left-radius: 40%;
+            border-top-right-radius: 40%;
+            border-top: 1px solid #eaeaea;
+            border-bottom: 0;
+            padding-bottom:6px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .arc.down{
+            height: 65px;
+            border-bottom-left-radius: 40%;
+            border-bottom-right-radius: 40%;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom: 1px solid #eaeaea;
+            padding: 17px 0;
+        }
+        .muli{
+            font-family: "muliregular", sans-serif;
+        }
+        .game-subtitle {
+            line-height: 16px;
+        }
+        .game-title{
+            font-size: 28px;
+            color: #990100;
+        }
+        hr{
+            border: none;
+            width: 60%;
+            height: 2px;
+            background: url("/frontend/images/hr.png");
+        }
+        .game-code-submit{
+            font-family: 'AvenirNextLTProBold', sans-serif;
+            font-size:14px;
+            color:#fff;
+            line-height: 43px;
+            height: 43px;
+            border-radius: 4px;
+            width: 50%;
+            display: inline-block;
+            border: 1px solid #990100;
+        }
+        .game-note{
+            font-family:"fregatbold",sans-serif;
+            font-size:12px;
+            font-style:italic;
+            line-height: 16px;
+        }
+        input[type=text].game-code-input{
+            font-family:"fregatbold",sans-serif;
+            font-size:12px;
+            font-style:italic;
+            line-height: 43px;
+            height: 43px;
+            padding: 0 9px;
+            background: #fff;
+            border-radius: 4px;
+            width: 50%;
+            display: inline-block;
+            margin: 10px auto;
+            border: 1px solid #990100;
+        }
+        .err-note{
+            margin-top: 5px;
+        }
+        #progress-bar span.active {
+            background: #990100;
+            color:#fff;
+            border-color:#990100;
+        }
+        #progress-bar span:first-child{
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+        #progress-bar span:last-child{
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+        #progress-bar span{
+            display: inline-block;
+            height: 30px;
+            width: 43px;
+            font-size: 12px;
+            font-family: "muliregular", sans-serif;
+            line-height: 30px;
+            background: #fff;
+            text-align: center;
+            border:1px solid #e8e8e8;
+        }
+        .game-active-title{
+            display: none;
+            background: #990100;
+        }
+        .game-active-title .item-title{
+            padding: 0;
+            line-height: 45px;
         }
     </style>
 @endsection
@@ -112,7 +226,6 @@
     <script src="{!! url('admin/assets/js/vue.js') !!}"></script>
     <script>
         $(function(){
-
             function getTimeRemaining(endtime){
                 var t = Date.parse(endtime) - Date.parse(new Date());
                 var seconds = Math.floor( (t/1000) % 60 );
@@ -138,13 +251,14 @@
                 },1000);
             }
             new Vue({
-                el: "#game",
+                el: "body",
 
                 ready:function(){
                     var vue = this;
                 },
 
                 data: {
+                    questions: [],
                     question: null,
                     code: null,
                     game: null,
@@ -175,6 +289,9 @@
                             method: 'GET'
                         }).done(function(e){
                             if(e){
+                                $(".question-info").show();
+                                $("#progress-bar").show();
+                                $(".game-active-title").show();
                                 $(".code-check").remove();
                                 $("#game").append("<div class='game-wrap'></div>");
                                 vue.code = e;
@@ -185,9 +302,11 @@
                                 else{
                                     vue.setQuestion(vue.game.questions[0]);
                                 }
+                                vue.questions = vue.game.questions;
                             }
                             else{
-                                $(".code-check").append("<p class='red-text err-note'>Error</p>");
+                                $(".code-check").append("<p class='red-text err-note game-note'>Error! Your code is " +
+                                        "incorrect or not active.</p>");
                             }
                         }).fail(function (jqXHR, textStatus, errorThrown) {
                             console.log("error");
@@ -211,27 +330,32 @@
                                 //url: '/check-answer?data-id=' + dataId +"&answer=" + answer
                                 //+ "&codeId=" + vue.code.id,
                                 //method: 'GET'
-                                url: '/check-answer/',
+                                url: '{{route("check.answer")}}',
                                 type: 'POST',
                                 data: data,
                                 processData: false,
                                 contentType: false,
                                 dataType: 'json'
                             }).done(function(data){
+                                $("#info").find(".info").html(vue.question.info);
                                 if(data && data != "") {
                                     vue.openHints = [];
                                     vue.errors = [];
                                     if(typeof data == "string"){
-                                        vue.showNote("You completed the game. " +
-                                                "But you have some time to play it more: ");
+                                        $("#info").find(".info").append("<p>You completed the game. " +
+                                                "But you have some time to play it more: </p>");
                                         initializeClock('clockdiv', data);
                                         $("#trophy").append("<a href='/" + vue.game.pdf  +
-                                               "' target='_blank'>Маршрут квеста</a> <a class='right' href='" +
+                                                "' target='_blank'>Маршрут квеста</a> <a class='right' href='" +
                                                 "/game'>Пройти заново</a>");
+                                        vue.showNote();
+
                                         vue.question = null;
                                     }
                                     else{
-                                        vue.showNote(data.info);
+                                        // vue.showNote(data.info);
+                                        // $("#info").find(".info").html(e);
+                                        vue.showNote();
                                         vue.setQuestion(data);
                                     }
                                 }
@@ -248,9 +372,8 @@
                             vue.showNote("Enter the answer");
                         }
                     },
-                    showNote: function(e){
-                      $("#info").find(".info").html(e);
-                      $("#info").openModal();
+                    showNote: function(){
+                        $("#info").openModal();
                     },
 
                     makeSlug: function(event){

@@ -15,17 +15,18 @@
             <a href="{!! route('dashboard.products.index') !!}">
 
                 <i class="menu-icon fa fa-shopping-cart"></i>
-                <span class="menu-text">Товары</span>
+                <span class="menu-text">Квесты</span>
             </a>
             <b class="arrow"></b>
         </li>
-        {{--<li class="{{ Request::is('dashboard/parameters*') ? 'active' : null }}">--}}
-            {{--<a href="{!! route('dashboard.parameters.index') !!}" title="Параметры Товаров">--}}
-                {{--<i class="menu-icon fa fa-cubes"></i>--}}
-                {{--<span class="menu-text">Параметры Тов...</span>--}}
-            {{--</a>--}}
-            {{--<b class="arrow"></b>--}}
-        {{--</li>--}}
+        <li class="{{ Request::is('dashboard/questions*') ? 'active' : null }}">
+            <a href="{!! route('dashboard.questions.index') !!}">
+
+                <i class="menu-icon fa fa-question"></i>
+                <span class="menu-text">Вопросы</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
         <li class="{{ Request::is('dashboard/categories*') ? 'active' : null }}">
             <a href="{!! route('dashboard.categories.index') !!}">
                 <i class="menu-icon fa fa-list"></i>
@@ -40,13 +41,6 @@
             </a>
             <b class="arrow"></b>
         </li>
-        {{--<li class="{{ Request::is('dashboard/filters*') ? 'active' : null }}">--}}
-            {{--<a href="{!! route('dashboard.filters.index') !!}">--}}
-                {{--<i class="menu-icon fa fa-filter"></i>--}}
-                {{--<span class="menu-text">Характеристики</span>--}}
-            {{--</a>--}}
-            {{--<b class="arrow"></b>--}}
-        {{--</li>--}}
 
         <li class="{{ Request::is('dashboard/sales*') ? 'active' : null }}">
             <a href="{!! route('dashboard.sales.index') !!}">

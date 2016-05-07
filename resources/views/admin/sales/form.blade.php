@@ -2,8 +2,6 @@
 @inject('usersProvider', 'App\ViewDataProviders\UsersDataProvider')
 @inject('categories', 'App\ViewDataProviders\CategoriesDataProvider')
 
-
-
 <div class="col-lg-5">
     <div class="form-group">
         {!! Form::label('title','Заголовок') !!}
