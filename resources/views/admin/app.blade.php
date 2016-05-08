@@ -305,7 +305,7 @@
 <script src="/admin/assets/js/ace.min.js"></script>
 <script src="/admin/assets/js/ace-elements.min.js"></script>
 <!-- Vue -->
-<script src="{!! url('admin/assets/js/vue.js') !!}"></script>
+<script src="{!! url('admin/assets/js/vue.old.js') !!}"></script>
 {{--<script src="{!! url('admin/assets/js/vue-resource.js') !!}"></script>--}}
 <!-- /Vue -->
 

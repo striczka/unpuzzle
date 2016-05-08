@@ -74,7 +74,7 @@
             <div class="col-md-9">
                 <div class="form-group">
                     {!! Form::label('question','Вопрос') !!}
-                    {!! Form::textarea('question',$value = null, ['class'=>'form-control', "rows"=>"3"]) !!}
+                    {!! Form::textarea('question',$value = null, ['class'=>'form-control tiny', "rows"=>"3"]) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('answer','Ответ') !!}

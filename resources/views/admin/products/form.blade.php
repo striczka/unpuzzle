@@ -310,7 +310,7 @@
 
                     <hr/>
                     {{--{{ dd($product->pdf) }}--}}
-                    {!!Form::label('pdf', "Загрузить PDF",["class" => "btn btn-success btn-sm"]) !!}
+                    {!!Form::label('pdf', "Загрузить карту маршрута",["class" => "btn btn-success btn-sm"]) !!}
                     @if(isset($product->pdf) && !empty($product->pdf))
                         {{--*/ $pdfName = explode('/', $product->pdf);/*--}}
                     @endif

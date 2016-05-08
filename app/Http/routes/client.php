@@ -1,7 +1,9 @@
 <?php
-
 if( ! Request::is('dashboard*') and ! Request::is('auth*')){
 
+	Route::get('refresh-csrf', function(){
+		return csrf_token();
+	});
 
 	/* Add review on front page */
 	post('add/review',['uses'=>'\App\Http\Controllers\Admin\ReviewsController@store','as'=>'add.review']);

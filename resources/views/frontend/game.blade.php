@@ -8,7 +8,7 @@
             </div>
         </div>
     </section>
-    <section class="@{{ !!question ? 'down' : '' }} arc">
+    <section class="@{{ !!game ? 'down' : '' }} arc">
         <div class="container">
             <div class="row center-align">
                 <p v-if="question == null" class="game-title muli">Hi!</p>
@@ -19,7 +19,7 @@
             </div>
         </div>
     </section>
-    <section class="@{{ !!question ? 'active' : '' }} game">
+    <section class="@{{ !!game ? 'active' : '' }} game">
         <div class="container relative">
             <div class="row">
                 <div id="game">
@@ -39,12 +39,13 @@
                                 v-on:click="getGame($event)">GO!</button>
                     </div>
                     <div class="question-info relative">
-                        <p v-if="question != null" data-id='@{{ question.id }}' id='question-id'>
-                            @{{ question.question }}
-                        </p>
-                        <div class="hints-bar" v-if="question != null">
-                            <span>Hints: </span>
-                            <span class="hint-links">
+                        <div v-if="question != null" data-id='@{{ question.id }}' id='question-id'>
+                            @{{{ question.question }}}
+                        </div>
+                        <hr>
+                        <div class="hints-bar col s12 no-padding" v-if="question != null">
+                            <span class="left need-help enter-answer">Need help? : </span>
+                            <span class="hint-links left">
                             <a class="modal-trigger"
                                v-for="hint in hints | orderBy 'order'"
                                v-on:click="getHint(hint, $event)"
@@ -53,22 +54,32 @@
                             </span>
                             {{--<p class="right-align"><a href="#info" class="modal-trigger">Info</a></p>--}}
                         </div>
-                        <input v-if="question != null" type='text' placeholder='answer'
-                               name='answer'
-                               @keyup.enter="answerTheQuestion()"/>
-                        <button class="waves-effect waves-light btn"
-                                v-if="question != null" v-on:click="answerTheQuestion()">ANSWER</button>
-                        <p v-if="errors.length > 0" class="errors red-text">Errors: @{{ errors }}</p>
+                        <hr>
                         <div class="hint" v-for="openHint in openHints">
                             @{{{ openHint.info }}}
-                        </div>
-                        <hr>
-                        <div class="center-align image">
-                            <img src="@{{ game.thumbnail[0].path }}" alt="">
                         </div>
                     </div>
                 </div>
                 <br>
+            </div>
+        </div>
+    </section>
+    <section class="answer-block col s12">
+        <div class="container">
+            <div class="row">
+                <p class="enter-answer" v-if="question != null">Enter your answer:</p>
+                <input class="game-code-input" v-if="question != null" type='text' placeholder='Your answer:'
+                       name='answer'
+                       @keyup.enter="answerTheQuestion()"/>
+                <p v-if="errors.length > 0" class="errors red-text">Errors: @{{ errors }}</p>
+            </div>
+        </div>
+    </section>
+    <section class="answer-button-block game-code-submit waves-effect waves-light btn"
+             v-if="question != null" v-on:click="answerTheQuestion()">
+        <div class="container">
+            <div class="row">
+                <span>ANSWER</span>
             </div>
         </div>
     </section>
@@ -80,16 +91,29 @@
             <div id="trophy"></div>
         </div>
     </div>
+    <div id="empty" class="modal">
+        <div class="modal-content">
+            <a href="#!" class="modal-action modal-close waves-effect btn-flat "><i class="fa fa-close"></i></a>
+            <div class="info"></div>
+        </div>
+    </div>
     <style>
-        .question-info, #progress-bar{
+        .question-info, #progress-bar, .answer-block, .answer-button-block{
             display:none;
         }
         .fa-star:before {
-            content: "\f003";
+            content: "\f005";
+        }
+        .hint-links a{
+            float:right;
+            font-size:22px;
+        }
+        .hint-links a:first-child{
+            color:#ffd242;
         }
         .hint-links a:not(:first-child){
             pointer-events: none;
-            opacity:0.5;
+            color:#d1d6d9;
         }
         .relative{
             position: relative;
@@ -101,6 +125,22 @@
         }
         .hints-bar a{
             padding: 0 3px;
+        }
+        .col.answer-block{
+            background: #eceff1;
+            padding: 0 0 10px;
+        }
+        .enter-answer{
+            font-family: 'AAvanteBs', sans-serif;
+            text-transform: uppercase;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 10px 0;
+        }
+        .need-help{
+            padding: 0 10px 0 0;
+            line-height: 25px;
         }
         .game:not(.active):before{
             content: "";
@@ -185,6 +225,15 @@
             margin: 10px auto;
             border: 1px solid #990100;
         }
+        .answer-button-block{
+            background: #990100;
+            position:relative;
+            width: 100%;
+            border-radius: 0;
+        }
+        .col.answer-block input[type=text].game-code-input{
+            width:100%;
+        }
         .err-note{
             margin-top: 5px;
         }
@@ -220,12 +269,39 @@
             padding: 0;
             line-height: 45px;
         }
+        .answer-button-block:before{
+            content: "\f00c";
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            color: #fff;
+            font-size: 16px;
+            width: 47px;
+            text-align: center;
+            line-height: 47px;
+            border-right: 1px solid #fff;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
     </style>
 @endsection
 @section('bottom-scripts')
     <script src="{!! url('admin/assets/js/vue.js') !!}"></script>
     <script>
         $(function(){
+            var csrfToken = $('[name="_token"]').attr('content');
+
+            setInterval(refreshToken, 3600000); // 1 hour
+
+            function refreshToken(){
+                $.get('refresh-csrf').done(function(data){
+                    csrfToken = data; // the new token
+                });
+            }
+
+            setInterval(refreshToken, 3600000); // 1 hour
+
             function getTimeRemaining(endtime){
                 var t = Date.parse(endtime) - Date.parse(new Date());
                 var seconds = Math.floor( (t/1000) % 60 );
@@ -292,6 +368,8 @@
                                 $(".question-info").show();
                                 $("#progress-bar").show();
                                 $(".game-active-title").show();
+                                $(".answer-button-block").show();
+                                $(".answer-block").show();
                                 $(".code-check").remove();
                                 $("#game").append("<div class='game-wrap'></div>");
                                 vue.code = e;
@@ -342,6 +420,10 @@
                                     vue.openHints = [];
                                     vue.errors = [];
                                     if(typeof data == "string"){
+                                        $("#progress-bar").remove();
+                                        $("#game").remove();
+                                        $(".answer-button-block").remove();
+                                        $(".answer-block").remove();
                                         $("#info").find(".info").append("<p>You completed the game. " +
                                                 "But you have some time to play it more: </p>");
                                         initializeClock('clockdiv', data);
@@ -366,10 +448,11 @@
                             }).fail(function (jqXHR, textStatus, errorThrown) {
                                 console.log("error");
                                 console.dir(arguments);
-                            });;
+                            });
                         }
                         else{
-                            vue.showNote("Enter the answer");
+                            $("#empty .info").text("Enter the answer");
+                            $("#empty").openModal();
                         }
                     },
                     showNote: function(){

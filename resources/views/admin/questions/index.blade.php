@@ -33,7 +33,7 @@
                         <tbody>
                         @foreach($questions as $question)
                             <tr>
-                                <td>{{ $question->question }}</td>
+                                <td>{!! $question->question !!}</td>
                                 <td class="center">
                                     @if($question->published)
                                         <i class="fa fa-check green"></i>
