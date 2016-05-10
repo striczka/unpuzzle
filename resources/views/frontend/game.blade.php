@@ -8,6 +8,18 @@
             </div>
         </div>
     </section>
+
+    <section class="game-logo">
+        <div class="container">
+            <div class="row center-align">
+                <div class="no-padding logo-col game-header-logo @{{ question != null ? 'in-game' : '' }}">
+                    <a id="logo-container" href="/" class="brand-logo">
+                        <img class="responsive-img" src="/frontend/images/logo.png"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="@{{ !!game ? 'down' : '' }} arc">
         <div class="container">
             <div class="row center-align">
@@ -22,6 +34,16 @@
     <section class="@{{ !!game ? 'active' : '' }} game">
         <div class="container relative">
             <div class="row">
+                <div class="game-trophy center-align" v-if="game != null">
+                    <br>
+                    <p class="game-note"></p>
+                    <hr>
+                    <div id="clockdiv"></div>
+                    <div id="trophy">
+                        <img v-bind:src="trophy" alt=""/>
+                        <hr>
+                    </div>
+                </div>
                 <div id="game">
                     <div class="center-align code-check">
                         <p class="uppercase red-text game-subtitle muli">You are about to start<br>
@@ -60,11 +82,10 @@
                         </div>
                     </div>
                 </div>
-                <br>
             </div>
         </div>
     </section>
-    <section class="answer-block col s12">
+    <section class="game-answer-block col s12">
         <div class="container">
             <div class="row">
                 <p class="enter-answer" v-if="question != null">Enter your answer:</p>
@@ -83,12 +104,35 @@
             </div>
         </div>
     </section>
+    @inject('settingsProvider', '\App\ViewDataProviders\SettingsDataProvider')
+    <section class="game-footer">
+        <div class="container">
+            <div class="row">
+                <div class="left game-footer-logo-wrap">
+                    <a href="/">
+                        <img class="responsive-img game-footer-logo" src="/frontend/images/logo.png"/>
+                    </a>
+                </div>
+                <div class="right game-footer-info">
+                    <p class="muli">Go to <a href="/" class="red-text game-domain">unpuzzleBarcelona.com</a></p>
+                    <p class="muli">
+                        @if(array_get($settingsProvider->getSettings(),'footer_phone1'))
+                            <a class=""
+                               href="tel:{{ preg_replace('/[^\d+]+/','',array_get($settingsProvider->getSettings(),'footer_phone1')) }} ">
+                                {{ array_get($settingsProvider->getSettings(),'footer_phone1') }}
+                            </a>
+                        @endif
+                        (Support phone)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="game-yellow" v-if="question == null"></section>
     <div id="info" class="modal">
         <div class="modal-content">
             <a href="#!" class="modal-action modal-close waves-effect btn-flat "><i class="fa fa-close"></i></a>
             <div class="info"></div>
-            <div id="clockdiv"></div>
-            <div id="trophy"></div>
         </div>
     </div>
     <div id="empty" class="modal">
@@ -98,7 +142,13 @@
         </div>
     </div>
     <style>
-        .question-info, #progress-bar, .answer-block, .answer-button-block{
+        .trophy img{
+            max-width: 100%;
+        }
+        .game-code-submit:hover{
+            color:#fff;
+        }
+        .question-info, #progress-bar, .game-answer-block, .answer-button-block{
             display:none;
         }
         .fa-star:before {
@@ -126,7 +176,7 @@
         .hints-bar a{
             padding: 0 3px;
         }
-        .col.answer-block{
+        .col.game-answer-block{
             background: #eceff1;
             padding: 0 0 10px;
         }
@@ -152,7 +202,7 @@
         .game:not(.active){
             position: relative;
             min-height: 440px;
-            margin-bottom:15px;
+            margin-bottom:18px;
             background: -webkit-linear-gradient(top, #FFD449 0%, #ffefba 80%, #ffefba 90%, #fff 100%);
             background: linear-gradient(top, #FFD449 0%, #ffefba 80%, #ffefba 90%, #fff 100%);
         }
@@ -202,6 +252,7 @@
             height: 43px;
             border-radius: 4px;
             width: 50%;
+            min-width:207px;
             display: inline-block;
             border: 1px solid #990100;
         }
@@ -221,6 +272,7 @@
             background: #fff;
             border-radius: 4px;
             width: 50%;
+            min-width:207px;
             display: inline-block;
             margin: 10px auto;
             border: 1px solid #990100;
@@ -231,7 +283,7 @@
             width: 100%;
             border-radius: 0;
         }
-        .col.answer-block input[type=text].game-code-input{
+        .col.game-answer-block input[type=text].game-code-input{
             width:100%;
         }
         .err-note{
@@ -264,6 +316,7 @@
         .game-active-title{
             display: none;
             background: #990100;
+            border-bottom: 1px solid #e8e8e8;
         }
         .game-active-title .item-title{
             padding: 0;
@@ -283,6 +336,76 @@
             position: absolute;
             top: 0;
             left: 0;
+        }
+        .game-yellow:before{
+            content:'';
+            position:absolute;
+            top:5px;
+            width:100%;
+            height:1px;
+            background:#e8e8e8;
+        }
+        .game-yellow{
+            height:53px;
+            position:relative;
+            background:#ffd242;
+        }
+        .game-footer{
+            border-top: 1px solid #e8e8e8;
+            border-bottom: 1px solid #e8e8e8;
+            background: #f8f6f6;
+            padding:7px 0 5px;
+        }
+        img.game-footer-logo{
+            height: 40px;
+        }
+        .game-footer-info p{
+            font-size:12px;
+            line-height: 18px;
+            letter-spacing: 0;
+        }
+        .game-header-logo.in-game {
+            margin: 0 auto;
+        }
+        .game-header-logo{
+            margin: 12px auto;
+            float:none
+        }
+        .question-info{
+            padding-top:10px
+        }
+        @media screen and (max-width:600px){
+            .game-note {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+            .game:not(.active):before {
+                background-size: 100% auto;
+            }
+            [class*='game'] .container {
+                width: 86%;
+            }
+            .game-footer-logo-wrap {
+                width:35%
+            }
+            img.game-footer-logo {
+                height: auto;
+            }
+            .game-active-title .item-title {
+                font-size: 22px;
+            }
+        }
+        @media screen and (max-width:350px) {
+            .game-footer-info{
+                margin-top: 10px;
+            }
+            .game-footer-logo-wrap, .game-footer-info{
+                width: 100%;
+                text-align: center;
+            }
+            img.game-footer-logo {
+                height: 50px;
+            }
         }
     </style>
 @endsection
@@ -337,6 +460,7 @@
                     questions: [],
                     question: null,
                     code: null,
+                    trophy: null,
                     game: null,
                     errors:[],
                     hints:[],
@@ -369,7 +493,7 @@
                                 $("#progress-bar").show();
                                 $(".game-active-title").show();
                                 $(".answer-button-block").show();
-                                $(".answer-block").show();
+                                $(".game-answer-block").show();
                                 $(".code-check").remove();
                                 $("#game").append("<div class='game-wrap'></div>");
                                 vue.code = e;
@@ -423,14 +547,16 @@
                                         $("#progress-bar").remove();
                                         $("#game").remove();
                                         $(".answer-button-block").remove();
-                                        $(".answer-block").remove();
-                                        $("#info").find(".info").append("<p>You completed the game. " +
-                                                "But you have some time to play it more: </p>");
-                                        initializeClock('clockdiv', data);
-                                        $("#trophy").append("<a href='/" + vue.game.pdf  +
-                                                "' target='_blank'>Маршрут квеста</a> <a class='right' href='" +
-                                                "/game'>Пройти заново</a>");
-                                        vue.showNote();
+                                        $(".game-answer-block").remove();
+
+                                        $(".game-trophy").find("p").html(vue.question.info);
+
+                                       // initializeClock('clockdiv', data);
+                                        vue.trophy = vue.game.pdf;
+                                        console.log(vue.trophy);
+                                        $("#trophy").append("<a href='/' class='game-code-submit " +
+                                                "center-align uppercase red'>Try another quest</a>");
+                                        //vue.showNote();
 
                                         vue.question = null;
                                     }

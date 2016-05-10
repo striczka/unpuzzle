@@ -311,16 +311,14 @@
                     <hr/>
                     {{--{{ dd($product->pdf) }}--}}
                     {!!Form::label('pdf', "Загрузить карту маршрута",["class" => "btn btn-success btn-sm"]) !!}
-                    @if(isset($product->pdf) && !empty($product->pdf))
-                        {{--*/ $pdfName = explode('/', $product->pdf);/*--}}
-                    @endif
 
                     <input type="hidden" v-model="PDF" value="{{ isset($pdfName) ? array_pop($pdfName) : '' }}"/>
                     <input type="file" name="pdf" id="pdf" v-on="change: loadPDF" v-el="pdfInput">
-                    <div class="pdf" v-show="PDF">
-                        <img src="/admin/assets/img/PDF-icon.png" alt="pdf file"/>
-                        <span>@{{ PDF }}</span>
+                    <div class="pdf" >
                         <a href="#"><i class="fa fa-remove" title="удалить PDF" v-on="click: removePDF($event)"></i></a>
+                        @if(isset($product->pdf) && !empty($product->pdf))
+                            <img src="{{ $product->pdf }}" alt="{{ $product->pdf }}">
+                        @endif
                     </div>
 
                     <hr/>

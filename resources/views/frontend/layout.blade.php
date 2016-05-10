@@ -13,7 +13,9 @@
 <body>
     @include('frontend.partials.header')
     @yield('content')
+    @if(!Request::is('game'))
     @include('frontend.partials.footer')
+    @endif
 <div id="application" class="modal">
     <div class="modal-content">
         <a href="#!" class="modal-action modal-close waves-effect btn-flat "><i class="fa fa-close"></i></a>

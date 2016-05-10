@@ -32,6 +32,17 @@ class FilesHandler {
 	 * @param null $path
 	 * @return $request
 	 */
+	public function saveImage($file)
+	{
+		$fileName = is_file(public_path(
+			"images/{$file->getClientOriginalName()}")) ?
+			time().$file->getClientOriginalName() :
+			$file->getClientOriginalName();
+
+		$file->move(public_path("images"), $fileName);
+
+		return $fileName;
+	}
 	public function saveFile($request, $path = null)
 	{
 
@@ -48,7 +59,12 @@ class FilesHandler {
 
 			$ext = $request->file($fileKey)->getClientOriginalExtension();
 
-			if($ext == "pdf" || $ext == "swf"){
+			if(count($request->file("pdf"))) {
+				$fileName = $this->saveImage($request->file("pdf"));
+				$request->files->remove("pdf");
+				$request["pdf"] = "/images/{$fileName}";
+			}
+			elseif($ext == "pdf" || $ext == "swf"){
 				$request->file($fileKey)->move($ext .'/', $fileName);
 				$request->merge([$fileKey => str_replace(public_path(), '', $ext .'/'. $fileName)]);
 			}

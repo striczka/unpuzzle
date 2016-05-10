@@ -2,13 +2,14 @@
 <section class="header">
     <div class="container">
         <div class="row">
+            @if(!Request::is('game'))
             <div class="no-padding logo-col left">
                 <a id="logo-container" href="/" class="brand-logo">
                     <img class="responsive-img" src="/frontend/images/logo.png"/>
                 </a>
             </div>
-            <div class="contact-info left">
-                <div class="red-string red s12 no-padding col">
+            <div class="contact-info left ">
+                <div class="red-string red s12 no-padding col ">
                     <span class="lang right"><a href="/es">es</a></span>
                     <span class="lang right"><a href="/rus">rus</a></span>
                     <span class="lang right"><a href="/en">en</a></span>
@@ -42,6 +43,7 @@
 
                 @include('frontend.partials.nav_menu')
             </div>
+            @endif
             {{--<div class="col s12 m4 l6 search-box">--}}
                 {{--<form action="{{ route('search') }}" method="GET">--}}
                     {{--<input class="search-form" type="search" placeholder="" name="search" value="{{ Request::get('search') }}"/>--}}

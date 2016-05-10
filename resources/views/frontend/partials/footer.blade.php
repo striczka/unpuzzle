@@ -25,7 +25,7 @@
                         {{--<li class="map">{{ array_get($settingsProvider->getSettings(),'address') }}</li>--}}
                     {{--@endif--}}
                     <li class="phone">
-                        @if(array_get($settingsProvider->getSettings(),'footer_phone2'))
+                        @if(array_get($settingsProvider->getSettings(),'footer_phone1'))
                             <a class=""
                                href="tel:{{ preg_replace('/[^\d+]+/','',array_get($settingsProvider->getSettings(),'footer_phone1')) }} ">
                                 <span class="tel">{{ array_get($settingsProvider->getSettings(),'footer_phone1') }}</span>
