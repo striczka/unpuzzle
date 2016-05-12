@@ -12,7 +12,7 @@
 @endsection
 
 @section('content')
-                <!-- Customize it as you want -->  
+                <!-- Customize it as you want -->
                   @if(isset($category->thumbnail) && is_file(public_path($category->thumbnail)))
                 <div class="category-thumb container">
 
@@ -29,7 +29,7 @@
 				                    @if(isset($category->thumb_desc))
                         <span>{!! $category->thumb_desc !!}</span>
                     @endif
-                        @endif  
+                        @endif
               </div>
                     @endif
 
@@ -53,9 +53,9 @@
         <p>Do you know that you remember any information better when you find and investigate it by yourself rather than listening to somebody?</p>
         <p>Forget about tour guides who overload you with information. Forget about big tour groups that you need to follow and make your back and feet ache after hours of non-stop walking! Be independent!
         Turn your trip into a real adventure!</p>
-        <p>UnPuzzle Barcelona is a perfect mix of finding your way in the city while learning some history and having fun! 
+        <p>UnPuzzle Barcelona is a perfect mix of finding your way in the city while learning some history and having fun!
             We've prepared many routes around the city - choose the theme and the neighborhood that you want to discover!</p>
-    </div>    
+    </div>
     <h3 class="content-h3"><span class="red-text">{{ isset($category->title) ? $category->title : $header }}</span></h3>
     <div class="container">
         <div class="row">

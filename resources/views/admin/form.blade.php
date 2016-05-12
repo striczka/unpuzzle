@@ -20,7 +20,10 @@
 <script type="text/javascript">
     tinymce.init({
         selector:"textarea.tiny",
-        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+        font_formats: "AAvanteBs=AAvanteBs;Aavanteheavy=aavanteheavy;AvenirPro Bold=AvenirNextLTProBold;Fregat Bold=FregatBold;Muli Italic=MuliItalic;" +
+        "Muli Light=MuliLight;Muli Light Italic=MuliLightItalic;"+
+        "Muli Regular=MuliRegular;MyriadPro=myriadpro;MyriadPro Bold=MyriadProBold",
+        fontsize_formats: "8px 10px 12px 14px 15px 18px 20px 24px 27px 36px 49px",
         plugins : 'image,table,colorpicker,textcolor,code,fullscreen,link',
         toolbar: [
             "undo redo | bold italic | fontselect |  fontsizeselect | alignleft aligncenter alignright | outdent indent | bullist numlist | indent | link | image fullscreen | forecolor backcolor"

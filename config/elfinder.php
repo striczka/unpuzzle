@@ -10,7 +10,7 @@ return array(
     | The dir where to store the images (relative from public)
     |
     */
-    'dir' => ['images','files'],
+    'dir' => ['images'],
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +40,7 @@ return array(
 
     'route' => [
         'prefix' => 'dashboard/elfinder',
-        'middleware' => 'permissions', // auth Set to null to disable middleware filter
+        'middleware' => null, // auth Set to null to disable middleware filter
     ],
 
     /*

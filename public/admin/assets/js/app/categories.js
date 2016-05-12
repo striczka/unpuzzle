@@ -60,6 +60,8 @@ new Vue({
                 url: '/dashboard/characteristics_list',
                 data: {_token: vue.token, ids: vue.getRelatedFieldsIds() },
                 success: function (fields) {
+                    console.log(fields);
+                    console.log("here");
                     fields.forEach(function(field){
                         field.pivot = {};
                         field.pivot.is_filter = 0;
@@ -71,16 +73,18 @@ new Vue({
 
         getFields: function(){
             var vue = this;
-            if(location.href.indexOf('edit') != -1) {
+            //if(location.href.indexOf('edit') != -1) {
                 $.ajax({
                     method: "GET",
                     url: location.href,
                     cache: false,
                     success: function (category) {
+                        console.log(category);
+                        console.log("hey");
                         vue.category = category;
                     }
                 });
-            }
+           // }
         },
 
         checked: function(field){

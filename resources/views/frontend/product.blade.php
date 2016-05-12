@@ -14,8 +14,8 @@
     <div class="container">
         <div class="row">
             <ol class="breadcrumb">
-                <li><a href="/">Главная</a></li>
-                <li><a href="/{{ $product->category->slug }}">{{ $product->category->title }}</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/{{ $product->category->slug }}">{{ $product->category->header }}</a></li>
                 <li class="active">{{ $product->title }}</li>
             </ol>
         </div>
@@ -29,11 +29,11 @@
         <div class="row">
             <div class="left linksBlock">
                 @if($product->prevProductSlug())
-                    <a class="link left" href="/{{ $product->category->slug.'/'.$product->prevProductSlug() }}">← Предыдущий товар</a>
+                    <a class="link left" href="/{{ $product->category->slug.'/'.$product->prevProductSlug() }}">← Prev quest</a>
                 @endif
 
                 @if($product->nextProductSlug())
-                    <a class="link right" href="/{{ $product->category->slug.'/'.$product->nextProductSlug() }}">Следующий товар →</a>
+                    <a class="link right" href="/{{ $product->category->slug.'/'.$product->nextProductSlug() }}">Next quest →</a>
                 @endif
             </div>
 
@@ -135,7 +135,7 @@
                                 <div class="col aspect no-padding s12">
                                     {{--{{ dd($field->filter->toArray()) }}--}}
                                     {{--<p class="title bold uppercase">Основные</p>--}}
-                                    <p class="col s12 no-padding">{{ $field->filter->title }} <span>{{ $field->value }}</span></p>
+                                    <p class="col s12 no-padding">{{ $field->filter->title }}: <span>{{ $field->value }}</span></p>
                                     {{--<p class="col s12 no-padding">{{ $field->value }}</p>--}}
                                 </div>
                             @endif
@@ -175,7 +175,7 @@
                             <p class="no-margin">{{ $product->pack }}</p>
                         </div>
                         <div class="col s12 no-padding productExcerpt">
-                            <p>{{ $product->excerpt }}</p>
+                            {!!  $product->body !!}
                         </div>
                         {{--
                         <div class="col clearleft short-desc s12 no-margin">

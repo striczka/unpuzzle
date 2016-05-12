@@ -149,7 +149,6 @@
                                 <div class="col-xs-2"><b>Удалить</b></div>
                             </div>
                         </div>
-
                         <div class="row"></div>
                         <div class="clearfix"></div>
                         <div class="dd">
@@ -257,7 +256,7 @@
                     </div>
                     <div class="form-group">
                         {!! Form::label('thumb_desc', 'Описание') !!}
-                        {!! Form::textarea('thumb_desc', $value = null, ['class' => 'form-control',"rows"=>2,]) !!}
+                        {!! Form::textarea('thumb_desc', $value = null, ['class' => 'form-control tiny',"rows"=>2,]) !!}
                     </div>
                     <div class="form-group" id="thumb-box">
                         <label for="thumbnail">Изображение <span style="color:#C20808;font-weight:600">(размер 1200x100 px)</span></label>

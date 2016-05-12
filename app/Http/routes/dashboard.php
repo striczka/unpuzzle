@@ -6,7 +6,6 @@
 //	$upload = new App\Services\BackupFilesUpload();
 //
 //});
-
 Route::group(['middleware' => ['permissions','handleSlug'],'namespace'=>'\App\Http\Controllers\Admin'], function() {
 
 	Route::group(['prefix'=>'dashboard'], function () {
@@ -93,6 +92,7 @@ Route::group(['middleware' => ['permissions','handleSlug'],'namespace'=>'\App\Ht
 		resource('questions', 'QuestionsController');
 		resource('hints', 'HintsController');
 		resource('stock', 'StockController');
+		get('catalogue', ['as'=>'dashboard.catalogue','uses'=>'CategoriesController@catalogue']);
 
 		get('users/search',['as'=>'dashboard.users.search','uses'=>'UsersController@search']);
 

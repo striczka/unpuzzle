@@ -46,7 +46,7 @@ class CategoriesController extends AdminController
 	{
 		$categories = $this->category
 								->where('parent_id',0)
-									->with('children')->orderBy('order')->get();
+								->with('children')->orderBy('order')->get();
 
 		return view('admin.categories.index',compact('categories'));
 	}
@@ -106,6 +106,22 @@ class CategoriesController extends AdminController
 
 		return view('admin.categories.edit', compact('category','filters','activeFilters','activeStrain'));
 	}
+	public function catalogue(Request $request)
+	{
+		$category = $this->category->with('fields')->first();
+
+		if($request->ajax()){
+			return $category->load('fields');
+			dd($category->load('fields')->toArray());
+		}
+		$filters = $this->filter->all();
+
+		$activeFilters = $category->filters()->get(['id'])->pluck('id')->toArray();
+
+		$activeStrain = $category->strain()->get(['id'])->pluck('id')->toArray();
+
+		return view('admin.categories.edit', compact('category','filters','activeFilters','activeStrain'));
+	}
 
 	/**
 	 * @param UpdateRequest $request
@@ -121,21 +137,23 @@ class CategoriesController extends AdminController
 
 		$arr = $request->get('filters');
 		$i = 0;
-		foreach($arr as &$filter){
-			$filter['order'] = $i;
-			isset($filter['show']) ?: $filter['show'] = 0;
-			isset($filter['is_filter']) ?: $filter['is_filter'] = 0;
-			$i++;
-		};
+		if(count($arr) > 0){
+			foreach($arr as &$filter){
+				$filter['order'] = $i;
+				isset($filter['show']) ?: $filter['show'] = 0;
+				isset($filter['is_filter']) ?: $filter['is_filter'] = 0;
+				$i++;
+			};
 //		dd($arr);
-		$category->filters()->sync($arr);
+			$category->filters()->sync($arr);
+		}
 //		$filterService->syncFilters($category, $request);
 
 		if((int)$request->get('button')) {
-			return redirect()->route('dashboard.categories.index')->withMessage('');
+			return redirect()->route('dashboard.catalogue')->withMessage('');
 		}
 
-		return redirect()->route('dashboard.categories.edit',$id);
+		return redirect()->route('dashboard.catalogue',$id);
 
 	}
 

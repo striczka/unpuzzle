@@ -183,6 +183,11 @@
                                 {!! Form::label('body', 'Полное Описание') !!}
                                 {!! Form::textarea('body', $value = null, ['rows'=>'12','class'=>'form-control tiny','form'=>'form-data']) !!}
                             </div>
+                            <div class="col-sm-12">
+                                <br/>
+                                {!! Form::label('adds', 'Дополнительная информация о квесте') !!}
+                                {!! Form::textarea('adds', $value = null, ['rows'=>'12','class'=>'form-control tiny','form'=>'form-data']) !!}
+                            </div>
                         </div>
                     </div>
 

@@ -97,7 +97,17 @@ class FrontendController extends BaseController
 		return view('frontend.catalog', compact('products', 'category'));
 	}
 
+	public function ourQuests(Request $request, FilterService $filterService)
+	{
+		$category = Category::first();
+		if($request->ajax()){
+			return $filterService->getFilteredProducts($request);
+		}
+		$products = Product::visible()
+			->paginate(9);
 
+		return view('frontend.our-quests', compact('products',"category"));
+	}
 	/**
 	 * @param $categorySlug
 	 * @param $productSlug

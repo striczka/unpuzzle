@@ -29,6 +29,7 @@ if( ! Request::is('dashboard*') and ! Request::is('auth*')){
 		Route::post('buy', 'FrontendController@buy');
 		Route::get('thank-you', 'FrontendController@thanks');
 
+		Route::get('our-quests', ['as' => 'our-quests', 'uses' => 'FrontendController@ourQuests']);
 		Route::get('new', ['as' => 'new', 'uses' => 'FrontendController@newProducts']);
 		Route::get('sale', ['as' => 'sale', 'uses' => 'FrontendController@saleProducts']);
 		Route::get('contacts', ['as' => 'contacts', 'uses' => 'FrontendController@contacts']);

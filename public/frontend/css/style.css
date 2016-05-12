@@ -5521,20 +5521,21 @@ i.subcategories-open {
 aside.col.m3 {
     padding: 0 12px 0 0
 }
-
+.header{
+    border:1px solid #f3f3f3
+}
 .breadcrumbs{
-    height: 25px;
-    background: #e5e5e5;
+    margin-top: 8px;
 }
 
 .breadcrumb li {
     float: left;
     position: relative;
     padding-right: 16px;
-    font: 300 14px "roboto-light", sans-serif;
+    font: 300 12px "MuliLight", sans-serif;
     color: #525252;
-    height: 25px;
-    line-height: 25px;
+    letter-spacing: 1px;
+    line-height: 12px;
 }
 
 ol.breadcrumb {
@@ -7321,8 +7322,34 @@ h3.red-text:before, h3.red-text:after{
 .fa-arrow-down:before {
     content: "\f063";
 }
-
-
+.category-thumb {
+    margin-bottom: -25px;
+}
+.category-thumb img{
+    min-width: 100%;
+}
+.absolute{
+    position:absolute!important
+}
+.relative{
+    position:relative!important
+}
+.category-desc span {
+    letter-spacing: 4px;
+}
+.category-desc p{
+    color:#fff;
+}
+.category-desc{
+    padding-top: 17px;
+    display: inline-block;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
 /*** new style ***/
 h3.content-h3 {
     height: 104px;
@@ -7336,8 +7363,13 @@ h3.content-h3 {
 h3.content-h3_low {
     text-transform: inherit;
 }
-.content {
+.category-content .content-h3 {
+    border-top: 1px solid #e8e8e8;
+}
+.category-content {
     background: #f5f5f5;
+    border-top:1px solid #e8e8e8;
+    margin-top:6px
 }
 span.red-text {
     position: relative;
@@ -7656,12 +7688,11 @@ header.single h4 {
     margin: 0 auto;
 }
 .ourQuestsText * {
-    font-family: 'aavantebsnr_light';
+    font-family: 'aavantebsnr_light', sans-serif;
     font-size: 15px;
+    line-height: 19px;
 }
-.ourQuestsText p:last-child{
-    padding-top: 20px;
-}
+
 .ourQuestsText h3:before,.ourQuestsText h3:after{
     display: none;
 }

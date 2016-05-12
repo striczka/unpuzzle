@@ -27,10 +27,10 @@
             </a>
             <b class="arrow"></b>
         </li>
-        <li class="{{ Request::is('dashboard/categories*') ? 'active' : null }}">
-            <a href="{!! route('dashboard.categories.index') !!}">
+        <li class="{{ Request::is('dashboard/catalogue*') ? 'active' : null }}">
+            <a href="{!! route('dashboard.catalogue') !!}">
                 <i class="menu-icon fa fa-list"></i>
-                <span class="menu-text">Категории</span>
+                <span class="menu-text">Каталог</span>
             </a>
             <b class="arrow"></b>
         </li>

@@ -6,7 +6,7 @@
                     <i class="drag-target close-button fa fa-times"></i>
 
                     <li><a href="/">home</a></li>
-                    <li><a href="{{ route('sale') }}">our quests</a></li>
+                    <li><a href="{{ route('our-quests') }}">our quests</a></li>
                     <li class="col s12 mob-collaps-catalog">
                         <a href="#" class="left">how it works</a>
                         <span class="collapsible-header right no-margin no-padding"><i class="fa fa-arrow-down subcategories-open"></i></span>
@@ -36,7 +36,7 @@
                 </ul>
                 <ul class="right top-nav hide-on-small-and-down">
                     <li><a href="/">home</a></li>
-                    <li><a href="{{ route('sale') }}">our quests</a></li>
+                    <li><a href="{{ route('our-quests') }}">our quests</a></li>
                     <li class="parent main-catalog">
                         <a href="#">how it works</a>
 
