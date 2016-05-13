@@ -5268,7 +5268,8 @@ p.note {
 }
 
 .content {
-    min-height: calc(100vh - 420px)
+    min-height: calc(100vh - 420px);
+    background: #f5f5f5;
 }
 
 .side-bar.card {
@@ -7670,10 +7671,6 @@ header.single h4 {
     float: left;
 }
 
-.ourQuests {
-    background: url()
-}
-
 .catalog .item-content{
     text-align: right;
 }
@@ -8175,14 +8172,161 @@ span.button:before {
     padding: 14px 0px;
     display: block;
 }   
+<<<<<<< HEAD
 .quest-type-title{
     margin-bottom: 4px;
 }
 .quest-types img{
     display: inline-block;
 }
+=======
+
+/* about */
+
+h3.staticPage {
+    text-align: center;
+    text-transform: uppercase;
+    color: #990100;
+    margin: 0;
+    background: #fff;
+    line-height: 100%;
+    padding: 40px 0px;
+}
+h3.staticPage:before,h3.staticPage:after{
+    display: none;
+}
+h3.staticPage span{
+    position: relative;
+}
+h3.staticPage span:before,h3.staticPage span:after{
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+    height: 4px;
+    background: #990100;
+    right: 0;
+}
+h3.staticPage span:before{
+    left: 0;
+    background: url(/images/iconH3.png) center center #fff no-repeat;
+    height: 20px;
+    width: 41px;
+    right: 0;
+    margin: -6px auto;
+    z-index: 1;
+}
+
+.staticPage table.tableAbout {
+    border: 1px solid #e6e6e6;
+    background: #fff;
+    margin-bottom: 50px;
+}
+.staticPage table.tableAbout td{
+    padding: 0;
+    display: block;
+    float: left;
+    width: 33.3333%;
+    height: 374px;
+}
+.staticPage table.tableAbout td * {
+    color: #000000;
+    font-size: 15px;
+    font-family: 'aavantebsnr_light';
+}
+.staticPage table.tableAbout td img {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+}
+.staticPage table.tableAbout td:nth-child(even){
+    background: #fff;
+}
+
+.staticPage h4,.staticPage h4 span{
+    color: #990100!important;
+    text-transform: inherit;
+    font-size: 26px!important;
+}
+.staticPage table.tableAbout strong{
+    font-family: 'aavantebsnrbold';
+}
+
+
+.banerHIW {
+    height: 140px;
+    background: #eceff1;
+    margin: 20px 0px 10px;
+    overflow: hidden;
+}
+.banerHIW .item{
+    position: relative;
+    height: 140px;
+    left: 30px;
+}
+.banerHIW .item h5{
+    font-family: 'aavantebsnrbold';
+    font-size: 16px;
+    color: #990100;
+    text-transform: uppercase;
+    margin: 0px;
+    position: absolute;
+    top: 37px;
+    left: 66px;
+    line-height: 100%;
+}
+.banerHIW .item p{
+    color: #666;
+    font-size: 14px;
+    font-family: 'aavantebsnr_light';
+    position: relative;
+    line-height: 16px;
+    left: 67px;
+}
+.banerHIW .item img{
+    position: relative;
+    top: 37px;
+}
+div.faq{
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    padding: 24px 17px;
+    margin-top: 22px;
+}
+div.faq .col:nth-child(2){
+    padding-left: 22px!important;
+}
+div.faq .col:nth-child(2) h4{
+    margin: 0px;
+}
+div.faq div.video {
+    height: 362px;
+    border: 1px solid #d0d0d0;
+}
+div[date-faq]{
+    display: none;
+    color: #000;
+    font-size: 15px;
+    font-family: 'aavantebsnr_light';
+    border: 2px dashed #A30303;
+    border-radius: 5px;
+    padding: 10px;
+}
+a[date-qfaq]{
+    color: #000;
+    font-family: 'Fregat-BoldItalic';
+    cursor: pointer;
+    margin-bottom: 4px;
+    display: block;
+}
+a[date-qfaq]:hover,a[date-qfaq].active{
+    color: #c71204;
+}
+
+>>>>>>> e144b033e7900579ed25fe6a9ba11c3dfb99a920
 @media (max-width: 1100px){
     .topAside, .bottomAside {padding: 0px;clear: both;}
+    .staticPage table.tableAbout td{width: 50%;}
 }
 
 @media (max-width: 1000px){
@@ -8216,10 +8360,11 @@ span.button:before {
         bottom: 0;
         margin: 10px 0px;
     }
-    .breadcrumbs {
+    .breadcrumbs,.banerHIW{
         height: auto;
     }
 
+    div.faq .col:nth-child(2){padding: 10px 0px!important}
     .post-row-center,.post-first .post-row-center { height: auto; }
     .articleExcerpt {height: auto; overflow: visible; }
     div.listLightbox,.slider-nav-product,.col.single-item-info{ width: 100%; }

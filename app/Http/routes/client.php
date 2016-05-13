@@ -10,6 +10,11 @@ if( ! Request::is('dashboard*') and ! Request::is('auth*')){
 
 	Route::group(['namespace' => '\App\Http\Controllers\Frontend'], function()
 	{
+
+
+Route::get('service', 'FrontendController@service');
+
+		
 		Route::get('hint/{id}', 'GameController@getHint');
 		Route::get('rate', 'FrontendController@rateProduct');
 
@@ -29,12 +34,13 @@ if( ! Request::is('dashboard*') and ! Request::is('auth*')){
 		Route::post('buy', 'FrontendController@buy');
 		Route::get('thank-you', 'FrontendController@thanks');
 
+
 		Route::get('our-quests', ['as' => 'our-quests', 'uses' => 'FrontendController@ourQuests']);
 		Route::get('new', ['as' => 'new', 'uses' => 'FrontendController@newProducts']);
 		Route::get('sale', ['as' => 'sale', 'uses' => 'FrontendController@saleProducts']);
 		Route::get('contacts', ['as' => 'contacts', 'uses' => 'FrontendController@contacts']);
 	
-		Route::get('service', ['as' => 'service', 'uses' => 'FrontendController@staticPage']);
+		// Route::get('service', ['as' => 'service', 'uses' => 'FrontendController@staticPage']);
 		Route::get('about', ['as' => 'about', 'uses' => 'FrontendController@staticPage']);
 
 		Route::get('login', ['as' => 'login', 'uses' => 'FrontendController@login']);
