@@ -23,10 +23,11 @@
 
 <section class="content">
     <!--Simple Menu-->
+    <h3 class="staticPage"><span>{{ $page->title }}</span></h3>
     <div class="container">
         <div class="row">
-            <div class="col s12 text-page no-padding">
-                <h3>{{ $page->title }}</h3>
+            <div class="col s12 staticPage text-page no-padding">
+               
                 {!! $page->content !!}
             </div>
         </div>
@@ -34,4 +35,13 @@
     <!--/Menu-->
 </section>
 
+
+
+
+<script type="text/javascript">
+    /* перемещение на странице о нас 
+    $('.tableAbout tr:nth-of-type(2) td').appendTo($('.tableAbout tr:nth-of-type(1)'));
+*/
+</script>
 @endsection
+
