@@ -5546,7 +5546,9 @@ ol.breadcrumb {
     float: left;
     padding: 0;
 }
-
+.product-content{
+    background: #f5f5f5;
+}
 .breadcrumb li:after {
     display: block;
     content: "|";
@@ -7813,6 +7815,7 @@ header.single h4 {
     position: relative;
     padding: 10px 0px;
     letter-spacing: 1px;
+    display: inline-block;
 }
 .asideFormProd h4 span:before,.asideFormProd h4 span:after{
     content: '';
@@ -7822,7 +7825,7 @@ header.single h4 {
     right: 0;
     margin: 0 auto;
     width: 96px;
-    height: 2px;
+    height: 1px;
     background: #fff;
 }
 .asideFormProd h4 span:before{
@@ -7842,12 +7845,13 @@ header.single h4 {
     font-size: 40px;
     text-align: right;
     color: #fff;
+    padding-right: 16px;
 }
 .asideFormProd table td:nth-child(1) span{
     font-size: 35px;
 }
 .asideFormProd table td:nth-child(2){
-    background:#fff url(/images/iconTypeQ1.png) center 24px no-repeat;
+    background:#fff;
     text-align: center;    
     color: #5d5d5d;
     font-size: 14px;
@@ -7861,11 +7865,69 @@ header.single h4 {
     width: 100%;
     left: 0;
 }
-
+.team-indicator{
+    width:50%;
+    float:left;
+    position:relative;
+}
+.team-indicator.one-team{
+    padding-right:5px
+}
+.team-indicator.two-teams{
+    padding-left:5px
+}
+.team-indicator.one-team:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    right: 10px;
+    width: 1px;
+    height: 42px;
+    background: #fff;
+    transform: skewX(17deg);
+    -ms-transform: skewX(17deg);
+    -webkit-transform: skewX(17deg);
+}
+.team-indicator.two-teams:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    left: 10px;
+    width: 1px;
+    height: 42px;
+    background: #fff;
+    transform: skewX(17deg);
+    -ms-transform: skewX(17deg);
+    -webkit-transform: skewX(17deg);
+}
+.team-indicator.one-team:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    right: 5px;
+    width: 0;
+    height: 0;
+    border-bottom: 42px solid transparent;
+    border-right: 12px solid #A72525;
+}
+.team-indicator.two-teams:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    left: 5px;
+    width: 0;
+    height: 0;
+    border-top: 42px solid transparent;
+    border-left: 12px solid #A72525;
+}
 .asideFormProd .label label{
     height: 42px!important;
-    width: 49.097473%; /* 136 / 277 */
-    max-width: 136px;
+    width: 100%; /* 136 / 277 */
+    /*max-width: 136px;*/
     line-height: 42px!important;
     background: #820402;
     color: #fff;
@@ -7878,9 +7940,10 @@ header.single h4 {
 }
 .asideFormProd .label{
     position: relative;
-    width: 92.333333%; /* 277 / 300 */
-    max-width: 277px;
+    width: 100%;
     margin: 26px auto 20px;
+    padding: 0 11px;
+    display: inline-block;
 }
 .asideFormProd .label input:checked + label {
     background: #ffad00;
@@ -8066,6 +8129,7 @@ span.button:before {
     width: 47.55555555%; /*428  / 900 */
     background: #fff;
     height: 436px;
+    border-top: 1px solid #e6e6e6;
 }
 .productExcerpt *{
     color: #000;
@@ -8111,7 +8175,12 @@ span.button:before {
     padding: 14px 0px;
     display: block;
 }   
-
+.quest-type-title{
+    margin-bottom: 4px;
+}
+.quest-types img{
+    display: inline-block;
+}
 @media (max-width: 1100px){
     .topAside, .bottomAside {padding: 0px;clear: both;}
 }

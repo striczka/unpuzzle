@@ -52,6 +52,7 @@ class Product extends Eloquent {
 		'active',
 		'excerpt',
 		'body',
+		'add',
 		'meta_title',
 		'meta_description',
 		'meta_keywords',
@@ -59,16 +60,22 @@ class Product extends Eloquent {
 		'is_bestseller',
 		'is_stock',
 		'is_new',
-		'brand_id',
 		'is_import',
 	];
 
 	public function codes() {
 		return $this->hasMany(Code::class)->with("question");
 	}
+	public function brands() {
+		return $this->belongsToMany(Brand::class);
+	}
 	public function questions() {
 		return $this->hasMany(Question::class)
 			->orderBy('order', 'asc')->with("hints");
+	}
+	public function sample() {
+		return $this->hasMany(Question::class)
+			->where('example', 1)->first();
 	}
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

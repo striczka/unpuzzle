@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Requests\BuyRequest;
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Code;
 use App\Models\CustomerGroup;
@@ -28,6 +29,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Session;
@@ -81,9 +83,6 @@ class FrontendController extends BaseController
 	{
 		// Ajax request is used when
 		// paginate or filter products
-		if($request->ajax()){
-			return $filterService->getFilteredProducts($request);
-		}
 
 		$category = Category::where('slug', $categorySlug)->with('filters')->first();
         if(!$category) abort(404);
@@ -93,6 +92,9 @@ class FrontendController extends BaseController
 				->visible()
 				->withRelations()
 				->paginate(15);
+		if($request->ajax()){
+			return $filterService->getFilteredProducts($request);
+		}
 
 		return view('frontend.catalog', compact('products', 'category'));
 	}
@@ -100,12 +102,13 @@ class FrontendController extends BaseController
 	public function ourQuests(Request $request, FilterService $filterService)
 	{
 		$category = Category::first();
-		if($request->ajax()){
-			return $filterService->getFilteredProducts($request);
-		}
 		$products = Product::visible()
 			->paginate(9);
 
+		if($request->ajax()){
+			$view = view("frontend.partials.products.product_array")->with("products", $products)->render();
+			return Response::json($view);
+		}
 		return view('frontend.our-quests', compact('products',"category"));
 	}
 	/**
@@ -142,8 +145,8 @@ class FrontendController extends BaseController
 
 		// need for reviews
 		$productReviewId = $product->id;
-
-		return view('frontend.product', compact('product','productReviewId'));
+		$banner = Banner::where("area", "mailing-block")->first();
+		return view('frontend.product', compact('product','productReviewId','banner'));
 	}
 
 

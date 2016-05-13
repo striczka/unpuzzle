@@ -154,11 +154,13 @@
                                     {!! Form::select('available', ['Нет', 'Да'], $selected = null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-
                             <div class="col-sm-3">
-                                <label for="category_id">Бренд</label>
-                                {!! Form::select('brand_id',
-                                    $value = $brandsProvider->getList(), $selected = null, ['class'=>'form-control']) !!}
+                                <label for="category_id">Тип</label>
+                                {!! Form::select('brand_id[]',
+                                    $value = $brandsProvider->getList(),
+                                    $selected = isset($product) ? array_flatten($product->brands()->lists("id")) : null,
+                                    ['class'=>'form-control',
+                                    "multiple"]) !!}
                                 <br/>
                             </div>
 
@@ -185,8 +187,8 @@
                             </div>
                             <div class="col-sm-12">
                                 <br/>
-                                {!! Form::label('adds', 'Дополнительная информация о квесте') !!}
-                                {!! Form::textarea('adds', $value = null, ['rows'=>'12','class'=>'form-control tiny','form'=>'form-data']) !!}
+                                {!! Form::label('add', 'Дополнительная информация о квесте') !!}
+                                {!! Form::textarea('add', $value = null, ['rows'=>'12','class'=>'form-control tiny','form'=>'form-data']) !!}
                             </div>
                         </div>
                     </div>

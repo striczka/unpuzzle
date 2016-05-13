@@ -73,13 +73,11 @@
                {{-- @include('frontend.partials.products.controls') --}}
 
                 <div id="products">
-                        @foreach($products as $product)
-                            @include('frontend.partials.products.product_template')
-                        @endforeach
+                    @include('frontend.partials.products.product_array')
                 </div>
 
                 <div class="col s12 que-link">
-                    <a href="/">more quests</a>
+                    <a href="/" id="load-more-quests">more quests</a>
                 </div>
             </div>
         </div>
@@ -110,6 +108,28 @@
             e.preventDefault();
             var video = $(this).siblings('._video').html();
             $('#video').find('.video-container').html(video);
-        })
+        });
+        var page = 2;
+        $(document).on('click', '#load-more-quests', function (e) {
+            getPosts();
+            e.preventDefault();
+        });
+
+        function getPosts() {
+            $.ajax({
+                url : '/our-quests/?page=' + page,
+                dataType: 'json'
+            }).done(function (data) {
+                if(data){
+                    page++;
+                    $("#products").append(data);
+                } else {
+                    $("#load-more-quests").text("No more quests");
+                }
+
+            }).fail(function () {
+                alert('Нельзя загрузить контент.');
+            });
+        }
     </script>
 @endsection

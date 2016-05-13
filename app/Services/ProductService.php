@@ -97,12 +97,10 @@ class ProductService {
      */
     public function getBestsellerProducts()
 	{
-		return Product::where('is_bestseller', true)
-            ->orderByRaw('RAND()')
-            ->original()
-            ->withRelations()
-            ->visible()
-            ->paginate(15);
+		$products = Product::where('is_bestseller', true)
+		->orderByRaw('RAND()')
+		->visible()->paginate(5);
+		return $products;
 	}
 
 

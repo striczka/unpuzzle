@@ -24,6 +24,7 @@
                         <tr>
                             <th>Название</th>
                             <th class="center">Вопрос действителен</th>
+                            <th class="center">Пример для квеста</th>
                             <th class="center">Квест</th>
                             <th class="mini-thumb center">Миниатюра</th>
                             <th class="center">Порядок</th>
@@ -33,9 +34,16 @@
                         <tbody>
                         @foreach($questions as $question)
                             <tr>
-                                <td>{!! $question->question !!}</td>
+                                <td>{!! $question->title !!}</td>
                                 <td class="center">
                                     @if($question->published)
+                                        <i class="fa fa-check green"></i>
+                                    @else
+                                        <i class="fa fa-minus"></i>
+                                    @endif
+                                </td>
+                                <td class="center">
+                                    @if($question->example)
                                         <i class="fa fa-check green"></i>
                                     @else
                                         <i class="fa fa-minus"></i>

@@ -130,6 +130,7 @@ class ProductsController extends AdminController
 	    if((int)$request->get('button')) {
             return redirect()->route('dashboard.products.index')->withMessage('');
         }
+		$product->brands()->sync($request->get("brand_id") ?: []);
 
         return redirect()->route('dashboard.products.edit',$product->id);
     }
@@ -185,6 +186,7 @@ class ProductsController extends AdminController
 
 	    $product->rates()->sync([ProductRate::create(['rate' => $request->get('rating')])->id]);
 
+		$product->brands()->sync($request->get("brand_id") ?: []);
 
         if((int)$request->get('button')) {
             return redirect()->route('dashboard.products.index');

@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    protected $fillable = ['product_id',"question", 'order', 'answer', 'info','published'];
+    protected $fillable = ['product_id',"title", "question", 'order', 'answer', 'info','published',"example",
+    "body"];
 
     public function product()
     {

@@ -73,8 +73,18 @@
         <div id="main" class="tab-pane active">
             <div class="col-md-9">
                 <div class="form-group">
+                    {!! Form::label('title','Заголовок') !!}
+                    {!! Form::text('title',$value = null, ['class'=>'form-control',
+                    "rows"=>"3", "required"=>"required"]) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('body','Описание вопроса') !!}
+                    {!! Form::textarea('body',$value = null, ['class'=>'form-control tiny', "rows"=>"3"]) !!}
+                </div>
+                <div class="form-group">
                     {!! Form::label('question','Вопрос') !!}
-                    {!! Form::textarea('question',$value = null, ['class'=>'form-control tiny', "rows"=>"3"]) !!}
+                    {!! Form::text('question',$value = null, ['class'=>'form-control',
+                    "rows"=>"3", "required"=>"required"]) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('answer','Ответ') !!}
@@ -85,6 +95,10 @@
                 <div class="form-group">
                     {!! Form::label('published', 'Вопрос активен?') !!}
                     {!! Form::select('published', ['Нет', 'Да'], $selected = null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('example', 'Пример для квеста?') !!}
+                    {!! Form::select('example', ['Нет', 'Да'], $selected = null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('order','Порядок') !!}

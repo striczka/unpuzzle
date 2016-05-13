@@ -19,6 +19,13 @@
             </a>
             <b class="arrow"></b>
         </li>
+        <li class="{{ Request::is('dashboard/brands*') ? 'active' : null }}">
+            <a href="{!! route('dashboard.brands.index') !!}">
+                <i class="menu-icon fa fa-apple"></i>
+                <span class="menu-text">Типы квестов</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
         <li class="{{ Request::is('dashboard/questions*') ? 'active' : null }}">
             <a href="{!! route('dashboard.questions.index') !!}">
 
@@ -62,13 +69,6 @@
             <a href="{!! route('dashboard.groups.index') !!}">
                 <i class="menu-icon fa fa-users"></i>
                 <span class="menu-text">Гр. покупателей</span>
-            </a>
-            <b class="arrow"></b>
-        </li>
-        <li class="{{ Request::is('dashboard/brands*') ? 'active' : null }}">
-            <a href="{!! route('dashboard.brands.index') !!}">
-                <i class="menu-icon fa fa-apple"></i>
-                <span class="menu-text">Бренды</span>
             </a>
             <b class="arrow"></b>
         </li>

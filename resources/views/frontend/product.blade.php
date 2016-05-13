@@ -23,7 +23,7 @@
 </section>
 <?php $pid = $product->id ?>
 
-<section class="content">
+<section class="content product-content">
     <h3 class="content-h3"><span class="red-text">{{ $product->title }}</span></h3>
     <div class="container">
         <div class="row">
@@ -43,19 +43,30 @@
                     <div class="slider-for-product">
                         @if(count($product->thumbnail) && file_exists(public_path($product->thumbnail->first()->path)))
                             @foreach($product->images as $key => $image)
-                                <div><img class="example-image" src="{{ $image->path }}" alt="{{ $product->title }}"/></div>
+                                <div>
+                                    <a class="example-image-link bigImage"
+                                       href="{{ $product->thumbnail->first()->path }}"
+                                       data-lightbox="example" data-title="{{ $product->title }}">
+                                    <img class="example-image" src="{{ $image->path }}" alt="{{ $product->title }}"/>
+                                        </a>
+                                </div>
                             @endforeach
                         @else
                             <img class="example-image" src="/frontend/images/default.png" alt="{{ $product->title }}"/>
                         @endif
                         @if(hasGift($product))
-                            <div class="appointment"><img src="/frontend/images/present.png" /></div>
+                            <div class="appointment">
+                                <img src="/frontend/images/present.png" />
+                            </div>
                         @endif
                     </div>
                         @if(count($product->thumbnail) && file_exists(public_path($product->images->first()->path)))
                             <div class='slider-nav-product'>
                                 @foreach($product->images as $key => $image)
-                                    <div><img class="example-image" src="{{ $image->path }}" alt="{{ $product->title }}"/></div>
+                                    <div>
+                                            <img class="example-image" src="{{ $image->path }}" alt="{{ $product->title }}"/>
+
+                                    </div>
                                 @endforeach
                             @else
                             @endif
@@ -175,7 +186,7 @@
                             <p class="no-margin">{{ $product->pack }}</p>
                         </div>
                         <div class="col s12 no-padding productExcerpt">
-                            {!!  $product->body !!}
+                            <p>{!!  $product->body !!}
                         </div>
                         {{--
                         <div class="col clearleft short-desc s12 no-margin">
@@ -227,43 +238,57 @@
                     <p>Полный комплект докумен­тов: паспорт, гарантийный талон, товарный чек.</p>
                 </div>
             </div> --}}
-
+            @if(count($product->sample()) > 0)
             <div class="sampleQuestion col no-padding">
                 <div>
                     <span>Sample question:</span>
-                    <h5>Catalonia Square</h5>
+                    <h5>{{ $product->sample()->title }}</h5>
                 </div>
-                    <p>You are now at the central square of Barcelona. Amazingly, what now is considered the center of the city only 150 years ago was a rural area just outside the city walls. The actual square was built in the beginning of 20th century following the design and the idea of the 19th century to connect the old town with the modern city. The square is famous for its 2 fountains which are beautifully illuminated during the night and numerous sculptures – works of famous Catalonian sculptors.</p>
-                    <span class="question">Find a sculpture with a ship. What is its name?</span>
+                    {!! $product->sample()->body!!}
+                    {{--<p>You are now at the central square of Barcelona. Amazingly, what now is considered the center of the city only 150 years ago was a rural area just outside the city walls. The actual square was built in the beginning of 20th century following the design and the idea of the 19th century to connect the old town with the modern city. The square is famous for its 2 fountains which are beautifully illuminated during the night and numerous sculptures – works of famous Catalonian sculptors.</p>--}}
+                    <span class="question">{{ $product->sample()->question }}</span>
             </div>
+            @endif
 
-
-            @include('frontend.partials.products.stock')
+            {{--@include('frontend.partials.products.stock')--}}
         </div>
         <div class="col s12 l3 asideFormProd no-padding">
-            <form>
+            <form action="/buy" method="POST" id="buy" >
+                {!! csrf_field() !!}
                 <h4><span>{{ $product->title }}</span></h4>
                 <table>
                     <tr>
-                        <td>{{ $product->getPrice()}} <span>{{ $product->brand->title }}</span></td>
+                        <td>{{ $product->getPrice()}}<span class="myriad-bold">€</span></td>
                         <td>
-                            <span>quest's type:</span>
-                            <br>or
+                            @if(count($product->brands) > 0)
+                            <div class="quest-type-title">quest's type:</div>
+                                <div class="quest-types">
+                                    @foreach($product->brands as $key=>$type)
+                                        @if($key != 0)
+                                            or
+                                        @endif
+                                        <img src="/{{ $type->card_thumbnail }}" alt="{{ $type->title }}">
+                                    @endforeach
+                                </div>
+                            @endif
                         </td>
                     </tr>
                 </table>
                 <div class="label">
-                    <input id='team1' type="radio" name="team" value='1' checked>
-                    <label for="team1">1 team</label>
-                    <!--<div class="delimiter"></div>-->
-                    <input id='team2' type="radio" name="team" value='2'>
-                    <label for="team2">2 teams</label>
+                    <div class="one-team team-indicator">
+                        <input id='team1' type="radio" name="team" value='1' checked>
+                        <label for="team1">1 team</label>
+                    </div>
+                    <div class="two-teams team-indicator">
+                        <input id='team2' type="radio" name="team" value='2'>
+                        <label for="team2">2 teams</label>
+                    </div>
                 </div>
                 <div class="entryField">
                     <p>Enter the information:</p>
-                    <input type='text' name="name" placeholder="you name">
-                    <input type='email' name="email" placeholder="you email">
-                    <textarea  name="comment" placeholder="you comment"></textarea>
+                    <input type='text' name="name" placeholder="your name">
+                    <input type='email' name="email" placeholder="your email">
+                    <textarea  name="comment" placeholder="your comment"></textarea>
                     <div class="lang">
                         <input type='radio' id="en" value='en' name="lang" checked>
                         <label for="en" data-text='en'></label>
@@ -279,7 +304,7 @@
             <div class="col s12 full-desc no-padding">
                 <h5>About Quest “<span>{{ $product->title }}</span>”:</h5>
                 <div class="full-descBody">
-                   {!! $product->body !!}
+                   {!! $product->add !!}
                 </div>
             </div>
             {{--
@@ -324,6 +349,47 @@
     </div>
 </section>
 
+<section class="{{$banner->area}}">
+        @if($banner->thumbnail)
+            <img class="banner-image" src="{{ url($banner->thumbnail) }}" alt="{{$banner->title}}">
+        @endif
+        <div class="container">
+            <div class="row">
+                <div class="banner megamenu">
+                    <div class="col no-padding s12 center-align">
+                        @if($banner->title)
+                            <h4 class='white-text'>
+                            @if($banner->link )
+                                <a rel="nofollow" href="{{ $banner->link }}" class="title-company-link">
+                                    {!! $banner->title !!}
+                                </a>
+                            @else
+                                {!! $banner->title !!}
+                            @endif
+                            </h4>
+                        @endif
+
+                            <form action="{!! route('mail.me') !!}" method="POST">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="_view" value="contact"/>
+
+                                <input placeholder="your question" id="name" name="name" type="text" class="validate" required="required">
+                                {{--<input placeholder="номер телефона" id="phone" name="phone" type="text" class="validate" required="required">--}}
+                                <div class="col s12 m6 email-field">
+                                    <input placeholder="your email" id="email"  name="email" type="text" class="validate email" required="required">
+                                </div>
+                                {{--<input placeholder="примечание" id="comment" name="comment" type="text" class="validate">--}}
+                                <div class="col s12 m6 submit-field">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">send your message
+                                        <i class="fa fa-envelope"></i></button>
+                                </div>
+                            </form>
+                        <div class="card-title clearfix">{!! $banner->caption !!}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
 <div id="video" class="modal">
     <div class="modal-content">
         <a href="#!" class="modal-action modal-close waves-effect btn-flat "><i class="fa fa-close"></i></a>

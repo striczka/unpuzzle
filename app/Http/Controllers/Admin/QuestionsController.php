@@ -91,7 +91,16 @@ class QuestionsController extends AdminController
     {
 
 	    $question = Question::find($id);
-	    $question->update($request->all());
+		if($request->get('example') == 1) {
+			$questions = Question::where("product_id", $request->get("product_id"))->get();
+			foreach($questions as $s){
+				$s->update(["example" => null]);
+			}
+		}
+		$question->update($request->all());
+		if((int)$request->get('button')) {
+			return redirect()->route('dashboard.questions.index')->withMessage('');
+		}
 	    return redirect()->route('dashboard.questions.edit', $question->id);
     }
 

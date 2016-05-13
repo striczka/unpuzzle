@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model
 {
-    protected $fillable = ['title'];
+    protected $fillable = ['title',"thumbnail", "card_thumbnail"];
 
+    public function products() {
+        return $this->belongsToMany(Product::class);
+    }
     public static function findOrCreate($title = '')
     {
         $brand = null;
