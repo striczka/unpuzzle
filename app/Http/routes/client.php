@@ -12,7 +12,7 @@ if( ! Request::is('dashboard*') and ! Request::is('auth*')){
 	{
 
 
-Route::get('service', 'FrontendController@service');
+Route::get('how-it-works', 'FrontendController@staticPage');
 
 		
 		Route::get('hint/{id}', 'GameController@getHint');

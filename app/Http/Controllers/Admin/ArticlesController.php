@@ -19,7 +19,7 @@ class ArticlesController extends AdminController
 	 */
 	public function index(Article $article)
 	{
-		$articles = $article->orderBy('id','desc')->paginate();
+		$articles = $article->orderBy('published_at','desc')->paginate();
 
 		return view('admin.articles.index',compact('articles'));
 	}

@@ -1,7 +1,7 @@
 @extends('frontend.layout')
 
 @section('seo')
-    <title>{{ 'Акции' }}</title>
+    <title>{{ 'Blog' }}</title>
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
 @endsection
@@ -82,16 +82,6 @@
 
                     <div class="col s12 center arts_pag">
                         {!! $articles->render() !!}
-                        {{--<a href="#" class="more btn white-text waves-effect waves-light"></a>--}}
-                        <ul class="pagination">
-                            <li class="active prev"><a href="#!">prev</a></li>
-                            <li class="active"><a href="#!">1</a></li>
-                            <li class="waves-effect"><a href="#!">2</a></li>
-                            <li class="waves-effect"><a href="#!">3</a></li>
-                            <li class="waves-effect"><a href="#!">4</a></li>
-                            <li class="waves-effect"><a href="#!">5</a></li>
-                            <li class="next"><a href="#!">next</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>

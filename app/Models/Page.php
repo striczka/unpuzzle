@@ -12,7 +12,7 @@ class Page extends  Eloquent
 		'slug',
 		'meta_title',
 		'meta_keywords',
-		'meta_description',
+		'meta_description'
 	];
 
 	public function articles()

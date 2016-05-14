@@ -1,85 +1,116 @@
 @extends('frontend.layout')
 
 @section('seo')
-    <title>{{ 'Сервис' }}</title>
+    <title>{{ 'How it works' }}</title>
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
 @endsection
 
 @section('content')
-<section class="breadcrumbs">
+        <!-- Customize it as you want -->
+    @if(isset($category->thumbnail) && is_file(public_path($category->thumbnail)))
+        <div class="category-thumb relative">
+            @if($category->thumb_link)
+                <a href="{{ url($category->thumb_link) }}">
+                    <img src="{{ asset($category->thumbnail) }}" alt="{{ $category->thumb_alt }}"/>
+                    @if(isset($category->thumb_desc))
+                        <div class="container category-desc">
+                            {!! $category->thumb_desc !!}
+                        </div>
+                    @endif
+                </a>
+            @else
+                <img src="{{ asset($category->thumbnail) }}" alt="{{ $category->thumb_alt }}"/>
+                @if(isset($category->thumb_desc))
+                    <div class="container category-desc absolute">
+                        {!! $category->thumb_desc !!}
+                    </div>
+                @endif
+            @endif
+        </div>
+    @endif
+<section class="breadcrumbs ourQuests">
     <div class="container">
         <div class="row">
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Сервис</li>
+                <li><a href="/">Home</a></li>
+                <li class="active">{{ $page->title }}</li>
             </ol>
         </div>
     </div>
 </section>
 
-<section class="content">
+@if(Request::is("about"))
+    @inject('settingsProvider', '\App\ViewDataProviders\SettingsDataProvider')
+    @if(array_get($settingsProvider->getSettings(),'agreement'))
+    <section class="content category-content about-additional-info">
+        @if($page->thumbnail)
+            <img class="banner-image" src="{{ url($page->thumbnail) }}" alt="{{$page->title}}">
+        @endif
+        <div class="container">
+            <div class="row">
+                <div class="ourQuestsText">
+                    {!! array_get($settingsProvider->getSettings(),'agreement') !!}
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
+        <section class="how-it-works-content">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 text-page no-padding center-align red-text">
+                    <h3 class="staticPage"><span>Our team</span></h3>
+                </div>
+            </div>
+        </div>
+    </section>
+@endif
+
+<section class="content {{ Request::is("how-it-works") ? 'how-it-works-content' : 'about-content' }}">
     <!--Simple Menu-->
+
     <div class="container">
         <div class="row">
-            <div class="col s12 text-page no-padding">
-                <h3 class="staticPage"><span>how it work</span></h3>
+            <div class="col s12 {{ Request::is("how-it-works") ? 'colour-block photo-block' : 'about-block'}} no-padding">
+                {!! $page->content !!}
             </div>
         </div>
     </div>
+    @if(Request::is("how-it-works"))
     <div class="container">
         <div class='faq'>
             <div class="row">
+                @if(isset($page->video)&&!empty($page->video))
                 <div class='col s12 m5 l5 no-padding'>
                     <div class="video">
-                        <video controls="true" height="100%" width="100%">
-                            <source src="/video/howtoplay.mp4" type="video/mp4">
+                        {{--<video controls="true" height="100%" width="100%">--}}
+                            {{--<source src="/{{$page->video}}" type="video/mp4">--}}
+                        {{--</video>--}}
+                        <video id="my-video" class="video-js" controls preload="auto" width="470" height="360"
+                               poster="/{{$page->thumbnail}}" data-setup="{}">
+                            <source src="/{{$page->video}}" type="video/mp4">
+                            <p class="vjs-no-js">
+                                To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                            </p>
                         </video>
                     </div>
                 </div>
+                @endif
+                @if(isset($askedQuestions))
                 <div class='col s12 m7 l7 no-padding'>
                     <h4 class="faqH4">FAQ (FREQUENTLY ASKED QUESTIONS)</h4>
                     <ul>
+                        @foreach($askedQuestions as $key => $askedQuestion)
                         <li>
-                            <a date-qFaq='1' onclick="faq(this);">1. I`ve bought the quest, what's next?</a>
-                            <div date-faq="1">You will get all the instructions and the activation code by email. Activate the game when you arrive to the starting point indicated in the e-mail. It is automatically generated and you will receive it a few minutes after the purchase. If you haven`t got the email, please write or call us before the game.</div>
+                            <a date-qFaq='{{ $key++ }}' onclick="faq(this);">{{ $key++ }}. {{ $askedQuestion->text }}</a>
+                            <div date-faq="{{ $key++ }}">{{ $askedQuestion->answer }}</div>
                         </li>
-                        <li>
-                            <a date-qFaq='2' onclick="faq(this);">2. How much time do I need to complete the route?</a>
-                            <div date-faq="2">There are different ways of completing the game - you can go at your own pace, discovering the city without rush and making picture or lunch breaks. In this case it will take you longer than 2 hours. But the time is unlimited, so you can play as long as you want, and if you don't finish the quest, you can do it the next day. The code will be active for 3 months since the day of purchase and for 1 month since you start the quest.
-                            Another way is to buy the team competition option - in this case the faster you come to the finish - the better.</div>
-                            </li>
-                        <li>
-                            <a date-qFaq='3' onclick="faq(this);">3. Do I need to download something? What kind of phone do I need? And if I run out of the battery?</a>
-                            <div date-faq="3">You will get all the instructions and the activation code by email. Activate the game when you arrive to the starting point indicated in the e-mail. It is automatically generated and you will receive it a few minutes after the purchase. If you haven`t got the email, please write or call us before the game.</div>
-                        </li>
-                        <li>
-                            <a date-qFaq='4' onclick="faq(this);">4. Will I still have access to the quest after I finish?</a>
-                            <div date-faq="4">You don`t need to download anything, you will use a special online game platform. So the main thingyou need is the internet connection and enough energy at your phone. If for some reason you need to enter the game from another device, just repeat the procedure - go to the game website and enter the code - the quest will appear at the moment you left it.</div>
-                        </li>
-                        <li>
-                            <a date-qFaq='5' onclick="faq(this);">5. Will I need a GPS to orient me?</a>
-                            <div date-faq="5">Read carefully the questions and instruction where to go - all you need to find the place is already there!</div>
-                        </li>
-                        <li>
-                            <a date-qFaq='6' onclick="faq(this);">6. Is there a quest app?</a>
-                            <div date-faq="6">Not yet. But we want to launch an offline app soon.</div>
-                        </li>
-                        <li>
-                            <a date-qFaq='7' onclick="faq(this);">7. What if I get lost &amp; can`t find the answer</a>
-                            <div date-faq="7">For this case you can always use our help buttons. First ones give you useful hints, last one reveals the right answer that will help you continue the quest. Remember that we are also here to help you.</div>
-                        </li>
-                        <li>
-                            <a date-qFaq='8' onclick="faq(this);">7. Can I do it by bike/ in-line skates?</a>
-                            <div date-faq="8" >Most of the roads are suitable for bikes - but some of the central streets may be too crowded and not convenient to drive. In-line skates are not recommended as most of the streets are made of block-stone.</div>
-                        </li>
-
-                        <li>
-                            <a date-qFaq='9' onclick="faq(this);">9. What if the object of the quest is not there any more?</a>
-                            <div date-faq="9">We update our quests with the most recent info so you will always be able to find the right answer &amp; continue your quest! If there is something that just happened please call us, we will be very grateful to get the latest news from you and help you of course.</div>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -109,10 +140,51 @@
                 </div>
             </div>
         </div>        
-    </div> 
+    </div>
+    @endif
     <!--/Menu-->
 </section>
+    <section class="{{$banner->area}}">
+        @if($banner->thumbnail)
+            <img class="banner-image" src="{{ url($banner->thumbnail) }}" alt="{{$banner->title}}">
+        @endif
+        <div class="container">
+            <div class="row">
+                <div class="banner megamenu">
+                    <div class="col no-padding s12 center-align">
+                        @if($banner->title)
+                            <h4 class='white-text'>
+                                @if($banner->link )
+                                    <a rel="nofollow" href="{{ $banner->link }}" class="title-company-link">
+                                        {!! $banner->title !!}
+                                    </a>
+                                @else
+                                    {!! $banner->title !!}
+                                @endif
+                            </h4>
+                        @endif
 
+                        <form action="{!! route('mail.me') !!}" method="POST">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="_view" value="contact"/>
+
+                            <input placeholder="your question" id="name" name="name" type="text" class="validate" required="required">
+                            {{--<input placeholder="номер телефона" id="phone" name="phone" type="text" class="validate" required="required">--}}
+                            <div class="col s12 m6 email-field">
+                                <input placeholder="your email" id="email"  name="email" type="text" class="validate email" required="required">
+                            </div>
+                            {{--<input placeholder="примечание" id="comment" name="comment" type="text" class="validate">--}}
+                            <div class="col s12 m6 submit-field">
+                                <button class="btn waves-effect waves-light" type="submit" name="action">send your message
+                                    <i class="fa fa-envelope"></i></button>
+                            </div>
+                        </form>
+                        <div class="card-title clearfix">{!! $banner->caption !!}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 <script type="text/javascript">
     function faq(thisQ){
         var t = thisQ;
@@ -129,4 +201,61 @@
     }
 </script>
 
+@endsection
+
+@section('bottom-scripts')
+    <script src="/frontend/js/video.js"></script>
+    <script>
+        function getContent(e){
+            var body = e.html();
+            e.addClass("active");
+            var outerHeight = 0, contents = e.children("p:not(:last-child)");
+            contents.each(function() {
+                console.log( $(this).height());
+                outerHeight += $(this).height();
+            });
+            var digit = e.find(".round-digit"),
+                    color = digit.css("background-color"),
+                    top = e.find(".photo-sector-" + digit.text()).css("background-position-y"),
+                    leftPre = e.find(".photo-sector-" + digit.text()).css("background-position-x"),
+                    left = parseInt(leftPre) + 15,
+                    d = (outerHeight + 17)*2;
+            e.html("");
+            e.append("<div class='active-content' style='border-color:" +
+                    color +"; top: " + top + "; margin-left: -" + left + "px;width:" + d +
+                    "px;height:" + d + "px'><span class='digit'>" + digit.text() + "</span>"+ body +"</div>");
+        }
+        $(function(){
+            var ps = $(".photo-block td > p:not(:last-child)"),
+                elems = $(".colour-block td");
+            ps.each(function(){
+                if($(this).find(".uppercase").length > 0){
+                    console.log("here");
+                }
+                else{
+                    $(this).hide();
+                    $(this).find("span").css({"color":"#2b2b2b", "text-align":"center","line-height":"19px"});
+                }
+            });
+            if($(window).width() < 360){
+                elems.each(function(){
+                    getContent($(this));
+                });
+            }
+            else{
+                elems.click(function(){
+                    if($(this).hasClass("active")){
+                        $(this).removeClass("active");
+                        $(this).find(".digit").remove();
+                        var exBody = $(this).find(".active-content").html();
+                        $(this).html(exBody);
+                    }
+                    else{
+                        getContent($(this));
+                    }
+                });
+            }
+
+            });
+    </script>
 @endsection

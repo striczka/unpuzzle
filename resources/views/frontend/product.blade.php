@@ -410,47 +410,6 @@
         </div>
     </div>
 </div>
-<div id="object-3d" class="modalTest">
-    <div class="modal-content center-align">
-        <a href="#!" class="objClose modal-close waves-effect btn-flat"><i class="fa fa-close"></i></a>
-            {{--<script src="/frontend/js/3dtour.js"></script>--}}
-            {{--<div id="container">--}}
-                {{--<div id="panoDIV" style="height:470px">--}}
-                    {{--<script>--}}
-                        {{--embedpano({target:"panoDIV",swf:"/{{ $product->flash_view }}",wmode:"direct"});--}}
-                    {{--</script>--}}
-
-                {{--</div>--}}
-            {{--</div>--}}
-       <object class="flashObject" width="550" height="400">
-           <param name="movie" value="/{{ $product->flash_view }}">
-           <embed src="/{{ $product->flash_view }}" width="550" height="400" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
-       </object>
-    </div>
-    <div class="object-hover"></div>
-</div>
-<section class="related">
-    <div class="container">
-        <div class="row">
-            <div class="col s12 product no-padding">
-                @if(count($product->relatedProducts))
-                <h3>Смотрите также</h3>
-                    <div class="related-products">
-
-                    @foreach($product->relatedProducts as $product)
-
-                        @include('frontend.partials.products.product_template')
-
-                    @endforeach
-
-                </div>
-                @endif
-            </div>
-        </div>
-    </div>
-    <!--/Menu-->
-    <input type="hidden" value="{{ csrf_token() }}" id="token"/>
-</section>
 <!--  Scripts-->
 
     @if(Auth::check())

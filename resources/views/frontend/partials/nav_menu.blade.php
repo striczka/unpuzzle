@@ -7,26 +7,7 @@
 
                     <li><a href="/">home</a></li>
                     <li><a href="{{ route('our-quests') }}">our quests</a></li>
-                    <li class="col s12 mob-collaps-catalog">
-                        <a href="#" class="left">how it works</a>
-                        <span class="collapsible-header right no-margin no-padding"><i class="fa fa-arrow-down subcategories-open"></i></span>
-                        <ul class="col no-padding s12 sub-categories collapsible-body">
-                            @foreach($categoriesProvider->getListForNav() as $category)
-                                <li>
-                                    <a href="/{{ $category->slug }}">{{ $category->title }}</a>
-                                    <input id="cat{{ $category->id }}"   type="checkbox" />
-                                    @if(count($category->children))
-                                        <label for="cat{{ $category->id }}" class="col no-padding s12">
-                                            <span><i class="fa fa-arrow-down subcategories-open green-text"></i></span>
-                                            @foreach($category->children as $child)
-                                                <a class="sub" href="/{{ $child->slug }}"><i class="fa fa-circle-o deeppurple"></i> {{ $child->title }}</a>
-                                            @endforeach
-                                        </label>
-                                    @endif
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
+                    <li><a href="/how-it-works">how it works</a></li>
                     <li><a href="{{ route('new') }}">testimonials</a></li>
                     <li><a href="{{ route('frontend.page') }}">blog</a></li>
                     <li><a href="/about">about us</a></li>
@@ -37,33 +18,7 @@
                 <ul class="right top-nav hide-on-small-and-down">
                     <li><a href="/">home</a></li>
                     <li><a href="{{ route('our-quests') }}">our quests</a></li>
-                    <li class="parent main-catalog">
-                        <a href="#">how it works</a>
-
-                        <div class="child">
-                            <div class="col s8 megamenu no-padding">
-                                {{--<ul class="side-bar">--}}
-                                    {{--@foreach($categoriesProvider->getListForNav() as $category)--}}
-                                        {{--<li class="col @if(count($category->children)) havechild @endif">--}}
-                                            {{--<img class="icon-cat" src="/frontend/images/{{ $category->icon }}" />--}}
-                                            {{--<img class="icon-cat-hover" src="/frontend/images/{{ substr_replace($category->icon, 'icon-cat-hover', 0, 8) }}"/>--}}
-                                            {{--<span><a href="/{{ $category->slug }}">{{ $category->title }}</a></span>--}}
-                                            {{--@if(count($category->children))--}}
-                                                {{--<ul class="sub-categories">--}}
-                                                    {{--@foreach($category->children as $child)--}}
-                                                        {{--<li><a href="/{{ $child->slug }}"><i class="fa fa-circle-o"></i> {{ $child->title }}</a></li>--}}
-                                                    {{--@endforeach--}}
-                                                {{--</ul>--}}
-                                            {{--@endif--}}
-                                        {{--</li>--}}
-                                    {{--@endforeach--}}
-                                {{--</ul>--}}
-                            </div>
-                            <div class="col s4 no-padding">
-
-                            </div>
-                        </div>
-                    </li>
+                    <li><a href="/how-it-works">how it works</a></li>
                     <li><a href="{{ route('new') }}">testimonials</a></li>
                     <li><a href="{{ route('frontend.page') }}">blog</a></li>
                     <li><a href="/about">about us</a></li>

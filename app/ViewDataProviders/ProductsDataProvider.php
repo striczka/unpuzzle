@@ -3,6 +3,7 @@
 namespace App\ViewDataProviders;
 
 
+use App\Models\Article;
 use App\Models\Product;
 use App\Models\Review;
 use App\Services\ProductService;
@@ -41,6 +42,19 @@ class ProductsDataProvider {
 		}
 
 		return $price;
+	}
+	public function getQuestsForMenu()
+	{
+		$products = Product::visible()
+			->paginate(5);
+
+		return $products;
+	}
+	public function getArticlesForMenu()
+	{
+		$articles = Article::where('published_at','<=', date('Y-m-d'))->orderBy('published_at','desc')->paginate(5);
+
+		return $articles;
 	}
 
 

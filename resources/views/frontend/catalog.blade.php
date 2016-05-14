@@ -13,7 +13,7 @@
 
 @section('content')
                 <!-- Customize it as you want -->
-                  @if(isset($category->thumbnail) && is_file(public_path($category->thumbnail)))
+                @if(isset($category->thumbnail) && is_file(public_path($category->thumbnail)))
                 <div class="category-thumb container">
 
 

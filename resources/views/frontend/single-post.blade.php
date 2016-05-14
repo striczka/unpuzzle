@@ -1,4 +1,5 @@
 @extends('frontend.layout')
+@inject('quests', '\App\ViewDataProviders\ProductsDataProvider')
 
 @section('seo')
     <title>{{ $article->meta_title ?: $article->title }}</title>
@@ -29,7 +30,7 @@
                     <div class="col s12 img-post no-padding">
                         <img src="{{ url($article->thumbnail) }}" class="responsive-img" alt="{{ $article->title }}">
                     </div>
-                    <div class="col single-post s12 fadeIn animated wow" data-wow-delay="0.3s">
+                    <div class="col single-post s12 fadeIn animated wow relative" data-wow-delay="0.3s">
                         <div class="col s12 post-text">
                             {!! $article->content !!}
                         </div>
@@ -46,30 +47,26 @@
                     </div>
                 </div>
                 <aside class="aside-article col s12 l3 no-padding">
+                    @if(count($quests->getQuestsForMenu())>0)
                     <div class="topAside">
                         <span class="span-h3">OUR QUESTS</span>
                         <ul>
-                            <li><a href="">Must see Barcelona</a></li>
-                            <li><a href="">Be hipster: take the hipster test</a></li>
-                            <li><a href="">Must see Barcelona</a></li>
-                            <li><a href="">Be hipster: take the hipster test</a></li>
-                            <li><a href="">Must see Barcelona</a></li>
-                            <li><a href="">Be hipster: take the hipster test</a></li>
+                            @foreach($quests->getQuestsForMenu() as $quest)
+                            <li><a href="/our-quests/{{$quest->link}}">{{$quest->title}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
+                    @endif
+                    @if(count($quests->getArticlesForMenu())>0)
                     <div class="bottomAside">
                         <span class="span-h3">BLOG</span>
                         <ul>
+                            @foreach($quests->getArticlesForMenu() as $quest)
                             <li><a href="">Go all the way from Catalonia Square</a></li>
-                            <li><a href="">Any day, any time</a></li>
-                            <li><a href="">Open the door to the mysterious</a></li>
-                            <li><a href="">Learn the cool facts</a></li>
-                            <li><a href="">Go all the way from Catalonia Square</a></li>
-                            <li><a href="">Any day, any time</a></li>
-                            <li><a href="">Open the door to the mysterious</a></li>
-                            <li><a href="">Learn the cool facts</a></li>
+                            @endforeach
                         </ul>
                     </div>
+                    @endif
                 </aside>
             </div>
         </div>

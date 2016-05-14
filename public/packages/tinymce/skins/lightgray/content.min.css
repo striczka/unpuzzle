@@ -249,6 +249,18 @@ p{
 .sector-4{
     background-image: url("/images/sector-4.png");
 }
+.photo-sector-1{
+    background-image: url("/images/photo-sector1.png");
+}
+.photo-sector-2{
+    background-image: url("/images/photo-sector2.png");
+}
+.photo-sector-3{
+    background-image: url("/images/photo-sector3.png");
+}
+.photo-sector-4{
+    background-image: url("/images/photo-sector4.png");
+}
 a {
     text-decoration: none;
 }

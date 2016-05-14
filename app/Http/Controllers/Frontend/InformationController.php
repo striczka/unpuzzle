@@ -13,7 +13,7 @@ class InformationController extends BaseController
 {
 	public function getPage(Article $article)
 	{
-		$articles = $article->show()->where('published_at','<=', date('Y-m-d'))->orderBy('published_at','desc')->paginate(10);
+		$articles = $article->show()->where('published_at','<=', date('Y-m-d'))->orderBy('published_at','desc')->paginate(9);
 		return view('frontend.page', compact('articles'));
 	}
 

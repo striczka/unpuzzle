@@ -11,6 +11,13 @@
 
             <b class="arrow"></b>
         </li>
+        <li  class="{{ Request::is('dashboard/banners*') ? 'active' : null }}">
+            <a href="{{ route("dashboard.banners.index") }}">
+                <i class="menu-icon fa fa-image"></i>
+                <span class="menu-text"> Блоки главной</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
         <li class="{{ Request::is('dashboard/products*') ? 'active' : null }}">
             <a href="{!! route('dashboard.products.index') !!}">
 
@@ -49,43 +56,43 @@
             <b class="arrow"></b>
         </li>
 
-        <li class="{{ Request::is('dashboard/sales*') ? 'active' : null }}">
-            <a href="{!! route('dashboard.sales.index') !!}">
-                <i class="menu-icon fa fa-tags"></i>
-                <span class="menu-text">Акции</span>
-            </a>
-            <b class="arrow"></b>
-        </li>
+        {{--<li class="{{ Request::is('dashboard/sales*') ? 'active' : null }}">--}}
+            {{--<a href="{!! route('dashboard.sales.index') !!}">--}}
+                {{--<i class="menu-icon fa fa-tags"></i>--}}
+                {{--<span class="menu-text">Акции</span>--}}
+            {{--</a>--}}
+            {{--<b class="arrow"></b>--}}
+        {{--</li>--}}
 
-        <li class="{{ Request::is('dashboard/stock*') ? 'active' : null }}">
-            <a href="{!! route('dashboard.stock.index') !!}">
-                <i class="menu-icon fa fa-gift"></i>
-                <span class="menu-text">Акц.комплекты</span>
-            </a>
-            <b class="arrow"></b>
-        </li>
+        {{--<li class="{{ Request::is('dashboard/stock*') ? 'active' : null }}">--}}
+            {{--<a href="{!! route('dashboard.stock.index') !!}">--}}
+                {{--<i class="menu-icon fa fa-gift"></i>--}}
+                {{--<span class="menu-text">Акц.комплекты</span>--}}
+            {{--</a>--}}
+            {{--<b class="arrow"></b>--}}
+        {{--</li>--}}
 
-        <li class="{{ Request::is('dashboard/groups*') ? 'active' : null }}">
-            <a href="{!! route('dashboard.groups.index') !!}">
-                <i class="menu-icon fa fa-users"></i>
-                <span class="menu-text">Гр. покупателей</span>
-            </a>
-            <b class="arrow"></b>
-        </li>
-        <li class="{{ Request::is('dashboard/shipments*') ? 'active' : null }}">
-            <a href="{!! route('dashboard.shipments.index') !!}">
-                <i class="menu-icon fa fa-send"></i>
-                <span class="menu-text">Способы доставки</span>
-            </a>
-            <b class="arrow"></b>
-        </li>
-        <li class="{{ Request::is('dashboard/payments*') ? 'active' : null }}">
-            <a href="{!! route('dashboard.payments.index') !!}">
-                <i class="menu-icon fa fa-money"></i>
-                <span class="menu-text">Способы оплаты</span>
-            </a>
-            <b class="arrow"></b>
-        </li>
+        {{--<li class="{{ Request::is('dashboard/groups*') ? 'active' : null }}">--}}
+            {{--<a href="{!! route('dashboard.groups.index') !!}">--}}
+                {{--<i class="menu-icon fa fa-users"></i>--}}
+                {{--<span class="menu-text">Гр. покупателей</span>--}}
+            {{--</a>--}}
+            {{--<b class="arrow"></b>--}}
+        {{--</li>--}}
+        {{--<li class="{{ Request::is('dashboard/shipments*') ? 'active' : null }}">--}}
+            {{--<a href="{!! route('dashboard.shipments.index') !!}">--}}
+                {{--<i class="menu-icon fa fa-send"></i>--}}
+                {{--<span class="menu-text">Способы доставки</span>--}}
+            {{--</a>--}}
+            {{--<b class="arrow"></b>--}}
+        {{--</li>--}}
+        {{--<li class="{{ Request::is('dashboard/payments*') ? 'active' : null }}">--}}
+            {{--<a href="{!! route('dashboard.payments.index') !!}">--}}
+                {{--<i class="menu-icon fa fa-money"></i>--}}
+                {{--<span class="menu-text">Способы оплаты</span>--}}
+            {{--</a>--}}
+            {{--<b class="arrow"></b>--}}
+        {{--</li>--}}
         <li class="{{ Request::is('dashboard/orders*') ? 'active' : null }}">
             <a href="{!! route('dashboard.orders.index') !!}">
                 <i class="menu-icon fa fa-cart-arrow-down"></i>
@@ -119,6 +126,13 @@
                 <span class="menu-text">Страницы</span>
             </a>
         </li>
+        <li class="{{ Request::is('dashboard/asked-questions*') ? 'active' : null }}">
+            <a href="{!! route('dashboard.asked-questions.index') !!}">
+                <i class="menu-icon fa fa-question"></i>
+                <span class="menu-text">Заданные вопросы</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
         <li  class="{{ Request::is('dashboard/users*') ? 'active' : null }}">
             <a href="{{ route("dashboard.users.index") }}">
                 <i class="menu-icon fa fa-users"></i>
@@ -134,13 +148,6 @@
             </a>
             <b class="arrow"></b>
         </li>
-        <li  class="{{ Request::is('dashboard/banners*') ? 'active' : null }}">
-            <a href="{{ route("dashboard.banners.index") }}">
-                <i class="menu-icon fa fa-image"></i>
-                <span class="menu-text"> Баннеры </span>
-            </a>
-            <b class="arrow"></b>
-        </li>
         <li  class="{{ Request::is('dashboard/reviews*') ? 'active' : null }}">
             <a href="{{ route("dashboard.reviews.index") }}">
                 <i class="menu-icon fa fa-comments-o"></i>
@@ -148,13 +155,13 @@
             </a>
             <b class="arrow"></b>
         </li>
-        <li  class="{{ Request::is('dashboard/transfer*') ? 'active' : null }}">
-            <a href="{{ route("dashboard.transfer.index") }}">
-                <i class="menu-icon fa fa-cogs"></i>
-                <span class="menu-text">Импорт/Экспорт</span>
-            </a>
-            <b class="arrow"></b>
-        </li>
+        {{--<li  class="{{ Request::is('dashboard/transfer*') ? 'active' : null }}">--}}
+            {{--<a href="{{ route("dashboard.transfer.index") }}">--}}
+                {{--<i class="menu-icon fa fa-cogs"></i>--}}
+                {{--<span class="menu-text">Импорт/Экспорт</span>--}}
+            {{--</a>--}}
+            {{--<b class="arrow"></b>--}}
+        {{--</li>--}}
     </ul><!-- /.nav-list -->
 
     <!-- #section:basics/sidebar.layout.minimize -->

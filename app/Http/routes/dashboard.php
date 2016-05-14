@@ -103,7 +103,9 @@ Route::group(['middleware' => ['permissions','handleSlug'],'namespace'=>'\App\Ht
 		resource('articles', 'ArticlesController');
 		resource('sliders', 'SlidersController');
 		post('categories/order', ['as' => 'dashboard.categories.order', 'uses' => 'CategoriesController@order']);
+		post('asked-questions/order', ['as' => 'dashboard.asked-questions.order', 'uses' => 'AskedQuestionsController@order']);
 		resource('categories', 'CategoriesController');
+		resource('asked-questions', 'AskedQuestionsController');
 		resource('banners', 'BannersController');
 
 		get('reviews/search',['as'=>'dashboard.reviews.search','uses'=>'ReviewsController@search']);

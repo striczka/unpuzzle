@@ -42,9 +42,9 @@
                             </a>
                         </li>
                         <li class="">
-                            <a data-toggle="tab" href="#agreement">
+                            <a data-toggle="tab" href="#project-info">
                                 <i class="red ace-icon fa fa-info-circle bigger-120"></i>
-                                Условия обслуживания
+                                О проекте
                             </a>
                         </li>
                     </ul>
@@ -175,10 +175,10 @@
 
                             </div>
                         </div>
-                        <div id="agreement" class="tab-pane fade">
+                        <div id="project-info" class="tab-pane fade">
                             <h4 class="blue">
                                 <i class="ace-icon fa fa-info-circle bigger-110"></i>
-                                Условия соглашения
+                                О проекте
                             </h4>
 
                             {!! Form::textarea('agreement', $value = null, ['rows'=>'20', 'class' => 'form-control tiny']) !!}

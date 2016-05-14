@@ -19,7 +19,7 @@
                     <table id="sample-table-2" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>Вес</th>
+                            <th>№</th>
                             <th>Название</th>
                             <th>Ссылка</th>
                             <th>Статус</th>

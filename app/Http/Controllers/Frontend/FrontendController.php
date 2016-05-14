@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Requests\BuyRequest;
+use App\Models\AskedQuestion;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Code;
@@ -258,11 +259,19 @@ class FrontendController extends BaseController
      */
 	public function staticPage(Request $request)
 	{
+		$category = Category::first();
 		$slug = trim($request->getRequestUri(), '/');
 		$page = StaticPage::where('slug', $slug)->first();
 		if(!$page) abort(404);
-		
- 		return view('frontend.static', compact('page'));
+		$banner = Banner::where("area", "mailing-block")->first();
+
+		if($slug == "how-it-works"){
+			$askedQuestions = AskedQuestion::orderBy('order')->get();
+			return view('frontend.service', compact('page', 'category', 'askedQuestions', 'banner'));
+		}
+		else{
+			return view('frontend.service', compact('page', 'category', 'banner'));
+		}
 	}
 
 

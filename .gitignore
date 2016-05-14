@@ -1,7 +1,7 @@
 /node_modules
-/public/frontend/css/style.css
 Homestead.yaml
 storage/
+/vendor
 .env
 .idea
 composer.lock

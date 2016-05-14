@@ -2,7 +2,7 @@
 @inject('bannerProvider', '\App\ViewDataProviders\BannerDataProvider')
 
 @section('seo')
-    <title>{{ 'HouseFit' }}</title>
+    <title>{{ 'UnPuzzle' }}</title>
     <meta name="description" content=""/>
     <meta name="keyword" content=""/>
 @endsection
