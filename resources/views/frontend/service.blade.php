@@ -72,6 +72,11 @@
 
     <div class="container">
         <div class="row">
+            @if(Request::is("how-it-works"))
+            <div class="col s12 text-page no-padding center-align red-text">
+                <h3 class="staticPage"><span>{{ $page->title }}</span></h3>
+            </div>
+            @endif
             <div class="col s12 {{ Request::is("how-it-works") ? 'colour-block photo-block' : 'about-block'}} no-padding">
                 {!! $page->content !!}
             </div>
